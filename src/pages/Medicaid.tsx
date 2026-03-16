@@ -86,7 +86,7 @@ const faqs = [
   },
   {
     q: "How does Javi's Insurance help with Medicaid?",
-    a: "We provide free, confidential assistance navigating the Medicaid application process. Our licensed agents help you understand eligibility requirements, gather required documentation, complete applications accurately, follow up on pending applications, and connect you with other programs you may qualify for (like SNAP or TANF). Our service costs you nothing—we're here to help you get the coverage you need."
+    a: "We provide free, confidential assistance with both new Medicaid applications and renewals. Our licensed agents help you understand eligibility requirements, gather required documentation, complete applications or renewal paperwork accurately, follow up on pending cases, and connect you with other programs you may qualify for (like SNAP or TANF). Whether you're applying for the first time or renewing your existing coverage, our service costs you nothing—we're here to help you get and keep the coverage you need."
   }
 ];
 
@@ -127,7 +127,7 @@ export const MedicaidPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Medicaid form submitted:', formData);
-    alert('Thank you! A licensed agent will contact you within 24 hours to assist with your Medicaid application.');
+    alert('Thank you! A licensed agent will contact you within 24 hours to assist with your Medicaid application or renewal.');
   };
 
   return (
@@ -176,7 +176,7 @@ export const MedicaidPage = () => {
             </h1>
 
             <p className="text-xl text-text-muted max-w-lg leading-relaxed">
-              We help you navigate the Medicaid application process. Free, confidential assistance from licensed agents who understand the system.
+              We help you apply for and renew your Medicaid coverage. Free, confidential assistance from licensed agents who understand the system.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -369,7 +369,7 @@ export const MedicaidPage = () => {
               How We <span className="text-gradient-secondary">Help You</span>
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Our licensed agents guide you through every step of the Medicaid application process.
+              Our licensed agents guide you through every step of the Medicaid application or renewal process.
             </p>
           </motion.div>
 
@@ -505,11 +505,11 @@ export const MedicaidPage = () => {
               </div>
 
               <h2 className="text-4xl font-bold mb-6 text-gray-800">
-                Get Help with Your <span className="text-gradient-primary">Medicaid Application</span>
+                Get Help with Your <span className="text-gradient-primary">Medicaid Application or Renewal</span>
               </h2>
 
               <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-                Our licensed agents provide free, confidential assistance with your Medicaid application. We'll help you understand your eligibility and guide you through every step.
+                Our licensed agents provide free, confidential assistance with new Medicaid applications and renewals. We'll help you understand your eligibility and guide you through every step.
               </p>
 
               <div className="space-y-6">
@@ -750,7 +750,8 @@ export const MedicaidPage = () => {
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent bg-white"
                   >
                     <option value="">Select...</option>
-                    <option value="medicaid">Medicaid enrollment help</option>
+                    <option value="medicaid">New Medicaid application</option>
+                    <option value="renewal">Medicaid renewal assistance</option>
                     <option value="chip">CHIP (Children's Health Insurance)</option>
                     <option value="eligibility">Check my eligibility</option>
                     <option value="dual">Medicare-Medicaid dual coverage</option>

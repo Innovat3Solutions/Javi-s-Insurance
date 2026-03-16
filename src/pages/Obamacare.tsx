@@ -23,6 +23,7 @@ import {
 // Official Healthcare.gov portal URL
 const HEALTHCARE_GOV_URL = "https://www.healthcare.gov/";
 const OBAMACARE_QUOTE_URL = "https://www.healthcare.gov/see-plans/";
+const HEALTHSHERPA_SELF_APPLY_URL = "https://www.healthsherpa.com/?_agent_id=javisinsuranceservices&ljs=es-MX";
 
 // Healthcare.gov official blue color
 const healthcareBlue = '#0071BC';
@@ -169,12 +170,15 @@ export const ObamacarePage = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 w-full">
-              <QuoteButton
-                href={OBAMACARE_QUOTE_URL}
-                label="Compare Plans on HealthCare.gov"
-                variant="primary"
-                size="large"
-              />
+              <a
+                href={HEALTHSHERPA_SELF_APPLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary flex items-center justify-center gap-2"
+              >
+                <FileText size={20} />
+                Apply Online Now
+              </a>
               <a
                 href="tel:310-437-2766"
                 className="btn-outline flex items-center justify-center gap-2"
@@ -492,14 +496,25 @@ export const ObamacarePage = () => {
           </div>
 
           <div className="text-center mt-12 space-y-4">
-            <QuoteButton
-              href={OBAMACARE_QUOTE_URL}
-              label="Compare All Plans on HealthCare.gov"
-              variant="secondary"
-              size="large"
-            />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={HEALTHSHERPA_SELF_APPLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-bright-red text-white px-8 py-4 rounded-full font-bold hover:bg-bright-red/90 transition-colors shadow-lg"
+              >
+                <FileText size={20} />
+                Apply Online Now
+              </a>
+              <QuoteButton
+                href={OBAMACARE_QUOTE_URL}
+                label="Compare on HealthCare.gov"
+                variant="secondary"
+                size="large"
+              />
+            </div>
             <p className="text-sm text-text-muted">
-              You'll be directed to the official HealthCare.gov website to view plans in your area.
+              Apply directly through our partner portal or compare plans on HealthCare.gov.
             </p>
           </div>
         </div>
@@ -544,15 +559,6 @@ export const ObamacarePage = () => {
               </p>
               <WhyChooseUsCompact />
 
-              {/* Transparency Notice */}
-              <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                <h4 className="font-bold text-sm mb-2">How We're Compensated</h4>
-                <p className="text-xs text-text-muted leading-relaxed">
-                  Our services are free to you. We receive a commission from insurance companies when you enroll through us.
-                  This doesn't affect your premium—you pay the same rate as going direct to HealthCare.gov.
-                  We work with multiple insurers to find you the best coverage, not just the highest commission.
-                </p>
-              </div>
             </motion.div>
 
             <motion.div
@@ -660,12 +666,15 @@ export const ObamacarePage = () => {
               <p className="text-white/80">Get a free quote in minutes. Our licensed agents are here to help.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <QuoteButton
-                href={OBAMACARE_QUOTE_URL}
-                label="Compare Plans Now"
-                variant="primary"
-                size="large"
-              />
+              <a
+                href={HEALTHSHERPA_SELF_APPLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-deep-blue px-6 py-3 rounded-full font-bold hover:bg-cream transition-colors flex items-center justify-center gap-2 shadow-lg"
+              >
+                <FileText size={20} />
+                Apply Online Now
+              </a>
               <a
                 href="tel:310-437-2766"
                 className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-bold hover:bg-white/20 transition-colors flex items-center justify-center gap-2"
@@ -789,7 +798,7 @@ export const ObamacarePage = () => {
       <Footer />
 
       {/* Sticky Mobile Quote Button */}
-      <StickyQuoteButton href={OBAMACARE_QUOTE_URL} />
+      <StickyQuoteButton href={HEALTHSHERPA_SELF_APPLY_URL} />
     </div>
   );
 };

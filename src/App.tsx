@@ -17,6 +17,7 @@ import { HomeInsurancePage } from './pages/HomeInsurance';
 import { AutoInsurancePage } from './pages/AutoInsurance';
 import { CommercialInsurancePage } from './pages/CommercialInsurance';
 import { MedicaidPage } from './pages/Medicaid';
+import { BecomeAgentPage } from './pages/BecomeAgent';
 import { LanguageProvider, useLanguage } from './i18n';
 
 // Animations
@@ -599,23 +600,23 @@ const FAQ = () => {
       </section>
 
       {/* Brand CTA Banner */}
-      <section className="relative bg-cream pb-16 pt-32 px-6">
+      <section className="relative bg-cream pb-16 pt-16 md:pt-32 px-6">
         <div className="max-w-5xl mx-auto relative">
 
           {/* CTA Card Background - Brand Colors */}
           <div
-            className="rounded-[2.5rem] p-10 md:p-14 lg:p-16 relative flex flex-col items-end mt-16 md:mt-24"
+            className="rounded-[2.5rem] p-8 md:p-14 lg:p-16 relative flex flex-col items-center md:items-end mt-0 md:mt-24"
             style={{
               background: 'linear-gradient(135deg, #1A459D 0%, #1A459D 60%, #C81D21 100%)',
               boxShadow: '0 30px 70px -15px rgba(26, 69, 157, 0.45), 0 15px 35px -10px rgba(0, 0, 0, 0.25)'
             }}
           >
-            {/* Phone with Money Image - Peeking exactly over the top of the card and anchored at the bottom */}
+            {/* Phone with Money Image - Hidden on mobile, visible on md+ */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="absolute bottom-0 left-0 md:left-4 lg:left-6 z-30 w-[20rem] md:w-[28rem] lg:w-[34rem] pointer-events-none"
+              className="hidden md:block absolute bottom-0 left-0 md:left-4 lg:left-6 z-30 w-[20rem] md:w-[28rem] lg:w-[34rem] pointer-events-none"
             >
               <img
                 src="/images/phone-money.png"
@@ -638,20 +639,20 @@ const FAQ = () => {
               </svg>
             </div>
 
-            <div className="w-full md:w-2/3 lg:w-1/2 flex flex-col items-start lg:pl-12 relative z-10 text-left mt-8 md:mt-0">
+            <div className="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center md:items-start text-center md:text-left lg:pl-12 relative z-10">
               <h3 className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                 {t.cta.finishedScrolling}<br />
                 {t.cta.startSaving}
               </h3>
 
-              <div className="flex w-full flex-col sm:flex-row items-center gap-6 mt-2">
+              <div className="flex w-full flex-col sm:flex-row items-center justify-center md:justify-start gap-6 mt-2">
                 <Link
                   to="/obamacare"
                   className="bg-white text-deep-blue px-8 py-3 rounded-xl font-bold hover:bg-cream transition-colors shadow-lg whitespace-nowrap"
                 >
                   {t.common.getStarted}
                 </Link>
-                <p className="text-white/90 text-sm leading-relaxed text-left">
+                <p className="text-white/90 text-sm leading-relaxed text-center md:text-left">
                   {t.cta.ctaDesc}
                 </p>
               </div>
@@ -750,6 +751,7 @@ export default function App() {
           <Route path="/auto" element={<AutoInsurancePage />} />
           <Route path="/commercial" element={<CommercialInsurancePage />} />
           <Route path="/medicaid" element={<MedicaidPage />} />
+          <Route path="/become-agent" element={<BecomeAgentPage />} />
         </Routes>
       </BrowserRouter>
     </LanguageProvider>

@@ -9,6 +9,7 @@ import { TrustBadges } from '../components/TrustBadges';
 import { ProcessTimelineCompact } from '../components/ProcessTimeline';
 import { TestimonialsSection } from '../components/TestimonialCard';
 import { WhyChooseUsCompact } from '../components/AboutSection';
+import { InsuranceCarousel } from '../components/InsuranceCarousel';
 import {
   ShieldIcon,
   ShieldPlus,
@@ -262,6 +263,14 @@ export const MedicarePage = () => {
           <TrustBadges variant="compact" />
         </div>
       </div>
+
+      {/* Insurance Providers Carousel */}
+      <InsuranceCarousel
+        variant="medicare"
+        title="We Work With Top Medicare Providers"
+        subtitle="Compare plans from leading Medicare Advantage carriers"
+        bgColor="bg-cream"
+      />
 
       {/* Medicaid Dual-Eligibility Banner */}
       <section className="bg-gradient-to-r from-[#00796B]/10 to-[#4DB6AC]/10 py-6 border-b border-[#00796B]/20">
@@ -523,16 +532,6 @@ export const MedicarePage = () => {
                 Medicare can be confusing with all its parts and options. Our licensed agents specialize in Medicare and make it simple to understand your choices.
               </p>
               <WhyChooseUsCompact />
-
-              {/* Transparency Notice */}
-              <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                <h4 className="font-bold text-sm mb-2">How We're Compensated</h4>
-                <p className="text-xs text-text-muted leading-relaxed">
-                  Our services are free to you. We receive a commission from insurance companies when you enroll through us.
-                  This doesn't affect your premium—you pay the same rate as going direct to Medicare.gov.
-                  We work with multiple carriers to find you the best coverage, not just the highest commission.
-                </p>
-              </div>
             </motion.div>
 
             <motion.div

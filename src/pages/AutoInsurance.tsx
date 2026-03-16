@@ -106,7 +106,7 @@ export const AutoInsurancePage = () => {
                     >
                         <span className="badge-trust">
                             <Car size={16} className="text-bright-red" />
-                            Sebanda Insurance Agency 61
+                            Javi's Insurance Services
                         </span>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-premium-heading">
@@ -584,7 +584,7 @@ export const AutoInsurancePage = () => {
                                 <label className="flex items-start gap-3 cursor-pointer">
                                     <input type="checkbox" required className="mt-1 w-5 h-5 text-bright-red border-gray-300 rounded focus:ring-bright-red" />
                                     <span className="text-sm text-text-muted">
-                                        I agree to be contacted by Sebanda Insurance Agency 61 via call, text, or email regarding my insurance request. Message and data rates may apply.
+                                        I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my auto insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.
                                     </span>
                                 </label>
                             </div>

@@ -38,22 +38,12 @@ const coverageTypes = [
 
 export const CommercialInsurancePage = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        contactName: '',
         phone: '',
         email: '',
         businessName: '',
         businessAddress: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        businessType: '',
-        yearsInBusiness: '',
-        numberOfEmployees: '',
-        annualRevenue: '',
-        currentCoverage: '',
-        coverageNeeded: [] as string[],
-        message: ''
+        businessType: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -63,15 +53,6 @@ export const CommercialInsurancePage = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            coverageNeeded: checked
-                ? [...prev.coverageNeeded, value]
-                : prev.coverageNeeded.filter(item => item !== value)
-        }));
-    };
 
     const formatPhone = (value: string) => {
         const numbers = value.replace(/\D/g, '');
@@ -93,15 +74,6 @@ export const CommercialInsurancePage = () => {
         setIsSubmitted(true);
     };
 
-    const coverageOptions = [
-        { value: 'gl', label: 'General Liability (GL)' },
-        { value: 'wc', label: "Workers' Compensation (WC)" },
-        { value: 'commercial-auto', label: 'Commercial Auto' },
-        { value: 'bop', label: "Business Owner's Policy (BOP)" },
-        { value: 'professional-liability', label: 'Professional Liability / E&O' },
-        { value: 'property', label: 'Commercial Property' },
-        { value: 'cyber', label: 'Cyber Liability' }
-    ];
 
     return (
         <div className="min-h-screen bg-cream font-sans text-text-main">
@@ -126,7 +98,7 @@ export const CommercialInsurancePage = () => {
                     >
                         <span className="badge-trust">
                             <Building2 size={16} className="text-deep-blue" />
-                            Sebanda Insurance Agency 61
+                            Javi's Insurance Services
                         </span>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-premium-heading">
@@ -331,63 +303,51 @@ export const CommercialInsurancePage = () => {
                         >
                             {/* Contact Information */}
                             <h3 className="text-xl font-bold mb-6 text-gradient-secondary">Contact Information</h3>
-                            <div className="grid md:grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-6 mb-8">
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        First Name <span className="text-gradient-primary">*</span>
+                                        Contact Name <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
-                                        name="firstName"
-                                        value={formData.firstName}
+                                        name="contactName"
+                                        value={formData.contactName}
                                         onChange={handleChange}
                                         required
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="John"
+                                        placeholder="John Doe"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">
-                                        Last Name <span className="text-gradient-primary">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="Doe"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">
-                                        Phone Number <span className="text-gradient-primary">*</span>
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handlePhoneChange}
-                                        required
-                                        maxLength={14}
-                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="(555) 123-4567"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">
-                                        Email Address <span className="text-gradient-primary">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="john@company.com"
-                                    />
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-text-main mb-2">
+                                            Phone Number <span className="text-gradient-primary">*</span>
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handlePhoneChange}
+                                            required
+                                            maxLength={14}
+                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
+                                            placeholder="(555) 123-4567"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-text-main mb-2">
+                                            Email Address <span className="text-gradient-primary">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
+                                            placeholder="john@company.com"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -419,154 +379,23 @@ export const CommercialInsurancePage = () => {
                                         onChange={handleChange}
                                         required
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="123 Business Ave, Suite 100"
+                                        placeholder="123 Business Ave, Suite 100, Los Angeles, CA 90001"
                                     />
-                                </div>
-                                <div className="grid md:grid-cols-3 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">City</label>
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            value={formData.city}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="Los Angeles"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">State</label>
-                                        <input
-                                            type="text"
-                                            name="state"
-                                            value={formData.state}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="CA"
-                                            maxLength={2}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">Zip Code</label>
-                                        <input
-                                            type="text"
-                                            name="zipCode"
-                                            value={formData.zipCode}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="90001"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">
-                                            Type of Business <span className="text-gradient-primary">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="businessType"
-                                            value={formData.businessType}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="e.g., Restaurant, Contractor, Retail"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">Years in Business</label>
-                                        <select
-                                            name="yearsInBusiness"
-                                            value={formData.yearsInBusiness}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all bg-white"
-                                        >
-                                            <option value="">Select</option>
-                                            <option value="new">New Business (Less than 1 year)</option>
-                                            <option value="1-3">1 to 3 years</option>
-                                            <option value="3-5">3 to 5 years</option>
-                                            <option value="5-10">5 to 10 years</option>
-                                            <option value="10+">10+ years</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">Number of Employees</label>
-                                        <select
-                                            name="numberOfEmployees"
-                                            value={formData.numberOfEmployees}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all bg-white"
-                                        >
-                                            <option value="">Select</option>
-                                            <option value="1">Just me (1)</option>
-                                            <option value="2-5">2 to 5 employees</option>
-                                            <option value="6-10">6 to 10 employees</option>
-                                            <option value="11-25">11 to 25 employees</option>
-                                            <option value="26-50">26 to 50 employees</option>
-                                            <option value="50+">50+ employees</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">Estimated Annual Revenue</label>
-                                        <select
-                                            name="annualRevenue"
-                                            value={formData.annualRevenue}
-                                            onChange={handleChange}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all bg-white"
-                                        >
-                                            <option value="">Select</option>
-                                            <option value="under-100k">Under $100,000</option>
-                                            <option value="100k-250k">$100,000 - $250,000</option>
-                                            <option value="250k-500k">$250,000 - $500,000</option>
-                                            <option value="500k-1m">$500,000 - $1 million</option>
-                                            <option value="1m-5m">$1 million - $5 million</option>
-                                            <option value="5m+">$5 million+</option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">Current Coverage</label>
+                                    <label className="block text-sm font-medium text-text-main mb-2">
+                                        Type of Business <span className="text-gradient-primary">*</span>
+                                    </label>
                                     <input
                                         type="text"
-                                        name="currentCoverage"
-                                        value={formData.currentCoverage}
+                                        name="businessType"
+                                        value={formData.businessType}
                                         onChange={handleChange}
+                                        required
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                        placeholder="Current insurance provider (if any)"
+                                        placeholder="e.g., Restaurant, Contractor, Retail"
                                     />
                                 </div>
-                            </div>
-
-                            {/* Coverage Needed */}
-                            <h3 className="text-xl font-bold mb-6 text-gradient-secondary">Coverage Needed</h3>
-                            <div className="grid md:grid-cols-2 gap-4 mb-8">
-                                {coverageOptions.map(option => (
-                                    <label key={option.value} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-deep-blue transition-colors">
-                                        <input
-                                            type="checkbox"
-                                            value={option.value}
-                                            checked={formData.coverageNeeded.includes(option.value)}
-                                            onChange={handleCheckboxChange}
-                                            className="w-5 h-5 text-deep-blue border-gray-300 rounded focus:ring-deep-blue"
-                                        />
-                                        <span className="text-sm font-medium">{option.label}</span>
-                                    </label>
-                                ))}
-                            </div>
-
-                            {/* Additional Notes */}
-                            <div className="mb-8">
-                                <label className="block text-sm font-medium text-text-main mb-2">Additional Information</label>
-                                <textarea
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    rows={4}
-                                    className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all resize-none"
-                                    placeholder="Any additional details about your business or specific coverage requirements..."
-                                />
                             </div>
 
                             {/* Consent */}
@@ -574,7 +403,7 @@ export const CommercialInsurancePage = () => {
                                 <label className="flex items-start gap-3 cursor-pointer">
                                     <input type="checkbox" required className="mt-1 w-5 h-5 text-deep-blue border-gray-300 rounded focus:ring-deep-blue" />
                                     <span className="text-sm text-text-muted">
-                                        I agree to be contacted by Sebanda Insurance Agency 61 via call, text, or email regarding my insurance request. Message and data rates may apply.
+                                        I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my business. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.
                                     </span>
                                 </label>
                             </div>

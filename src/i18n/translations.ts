@@ -123,7 +123,7 @@ export const translations = {
       q2: 'Is your service really free?',
       a2: "Yes! You never pay us a dime. Insurance companies pay us a commission when you enroll through us. You get the same rates as going direct, plus our expert guidance and year round support at no extra cost.",
       q3: 'Are your agents licensed?',
-      a3: "Absolutely. All our agents are fully licensed, certified, and undergo continuous training. We're licensed in all 50 states and the District of Columbia.",
+      a3: "Absolutely. All our agents are fully licensed, certified, and undergo continuous training. We're licensed in Florida and Texas.",
       q4: 'Can you help with both Obamacare and Medicare?',
       a4: "Yes! We specialize in both. For individuals and families, we help navigate ACA (Obamacare) plans. For seniors, we guide you through Medicare options including Advantage plans, supplements, and Part D coverage.",
       q5: 'When can I enroll in a health insurance plan?',
@@ -146,7 +146,7 @@ export const translations = {
       callUsDirectly: 'Call Us Directly',
       businessHours: 'Monday to Friday 8am to 8pm, Saturday 9am to 5pm',
       licensedAndTrusted: 'Licensed and Trusted',
-      licensedSince: 'Licensed in all 50 states, trusted since 2015',
+      licensedSince: 'Licensed in Florida and Texas, trusted since 2015',
       getInTouch: 'Get in Touch',
       contactFormSubtitle: "Fill out the form and we'll contact you within 24 hours.",
     },
@@ -202,7 +202,7 @@ export const translations = {
     },
     // Trust badges
     trust: {
-      licensedAllStates: 'Licensed in All 50 States',
+      licensedAllStates: 'Licensed in Florida & Texas',
       npn: 'NPN #12345678',
       encryption: '256 bit Encryption',
       dataSecure: 'Your data is secure',
@@ -216,7 +216,7 @@ export const translations = {
     // Common
     common: {
       phone: '(310) 437-2766',
-      email: 'info@javisinsurance.com',
+      email: 'info@javisservices.com',
       learnMore: 'Learn More',
       getStarted: 'Get Started',
       callNow: 'Call Now',
@@ -344,7 +344,7 @@ export const translations = {
       q2: '¿Su servicio es realmente gratis?',
       a2: '¡Sí! Nunca nos paga ni un centavo. Las compañías de seguros nos pagan una comisión cuando se inscribe a través de nosotros. Obtiene las mismas tarifas que yendo directo, más nuestra orientación experta y apoyo durante todo el año sin costo adicional.',
       q3: '¿Sus agentes están licenciados?',
-      a3: 'Absolutamente. Todos nuestros agentes están completamente licenciados, certificados y reciben capacitación continua. Estamos licenciados en los 50 estados y el Distrito de Columbia.',
+      a3: 'Absolutamente. Todos nuestros agentes están completamente licenciados, certificados y reciben capacitación continua. Estamos licenciados en Florida y Texas.',
       q4: '¿Pueden ayudar tanto con Obamacare como con Medicare?',
       a4: '¡Sí! Nos especializamos en ambos. Para individuos y familias, ayudamos a navegar los planes ACA (Obamacare). Para personas mayores, los guiamos a través de las opciones de Medicare incluyendo planes Advantage, suplementos y cobertura de la Parte D.',
       q5: '¿Cuándo puedo inscribirme en un plan de seguro de salud?',
@@ -367,7 +367,7 @@ export const translations = {
       callUsDirectly: 'Llámenos Directamente',
       businessHours: 'Lunes a Viernes 8am a 8pm, Sábado 9am a 5pm',
       licensedAndTrusted: 'Licenciados y Confiables',
-      licensedSince: 'Licenciados en los 50 estados, confiables desde 2015',
+      licensedSince: 'Licenciados en Florida y Texas, confiables desde 2015',
       getInTouch: 'Póngase en Contacto',
       contactFormSubtitle: 'Complete el formulario y nos comunicaremos con usted dentro de 24 horas.',
     },
@@ -423,7 +423,7 @@ export const translations = {
     },
     // Trust badges
     trust: {
-      licensedAllStates: 'Licenciado en los 50 Estados',
+      licensedAllStates: 'Licenciado en Florida y Texas',
       npn: 'NPN #12345678',
       encryption: 'Encriptación de 256 bits',
       dataSecure: 'Sus datos están seguros',
@@ -437,7 +437,7 @@ export const translations = {
     // Common
     common: {
       phone: '(310) 437-2766',
-      email: 'info@javisinsurance.com',
+      email: 'info@javisservices.com',
       learnMore: 'Más Información',
       getStarted: 'Comenzar',
       callNow: 'Llamar Ahora',

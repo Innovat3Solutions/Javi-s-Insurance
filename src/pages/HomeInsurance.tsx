@@ -231,7 +231,7 @@ export const HomeInsurancePage = () => {
                             </motion.div>
                             <h3 className="text-3xl font-bold text-premium-heading mb-4">Request Received!</h3>
                             <p className="text-xl text-text-muted mb-8 max-w-md mx-auto leading-relaxed">
-                                Thank you for choosing Sebanda Insurance. One of our home insurance specialists will contact you shortly with your personalized quotes.
+                                Thank you for choosing Javi's Insurance Services. One of our home insurance specialists will contact you shortly with your personalized quotes.
                             </p>
                             <button
                                 onClick={() => setIsSubmitted(false)}
@@ -520,7 +520,7 @@ export const HomeInsurancePage = () => {
                                                     <label className="flex items-start gap-3 cursor-pointer">
                                                         <input type="checkbox" required className="mt-1 w-5 h-5 text-deep-blue border-gray-300 rounded focus:ring-deep-blue" />
                                                         <span className="text-sm text-text-muted">
-                                                            I agree to be contacted by Sebanda Insurance Agency 61 via call, text, or email regarding my insurance request. Message and data rates may apply.
+                                                            I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my home insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.
                                                         </span>
                                                     </label>
                                                 </div>

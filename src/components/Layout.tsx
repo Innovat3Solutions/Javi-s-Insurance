@@ -467,7 +467,7 @@ const FooterTrustBadges = () => (
       </div>
       <div className="text-left">
         <div className="text-xs font-bold text-text-main">Licensed</div>
-        <div className="text-xs text-text-muted">All 50 States</div>
+        <div className="text-xs text-text-muted">FL & TX</div>
       </div>
     </div>
     <div className="flex items-center justify-center gap-3 py-3">
@@ -596,7 +596,7 @@ export const Footer = () => {
                 <PhoneIcon size={18} className="text-bright-red" />
                 <span>{t.common.phone}</span>
               </a>
-              <a href="mailto:info@javisinsurance.com" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
+              <a href="mailto:info@javisservices.com" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
                 <EmailIcon size={18} className="text-bright-red" />
                 <span>{t.common.email}</span>
               </a>
@@ -622,6 +622,7 @@ export const Footer = () => {
                 <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.faqLink}</Link></li>
                 <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.helpCenter}</Link></li>
                 <li><Link to="/#contact" className="hover:text-deep-blue transition-colors">{t.nav.contact}</Link></li>
+                <li><Link to="/become-agent" className="hover:text-deep-blue transition-colors">Become an Agent</Link></li>
               </ul>
             </div>
             <div>

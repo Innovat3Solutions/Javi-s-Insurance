@@ -11,7 +11,7 @@ const whyChooseUs = [
   {
     icon: Award,
     title: "Licensed Experts",
-    description: "Our team holds professional certifications and is licensed in all 50 states to serve you wherever you are."
+    description: "Our team holds professional certifications and is licensed in Florida and Texas to serve you."
   },
   {
     icon: DollarIcon,
@@ -177,7 +177,7 @@ export const CompanyStats = () => {
   const stats = [
     { value: "15+", label: "Years Experience", icon: Clock },
     { value: "10,000+", label: "Families Helped", icon: Users },
-    { value: "50", label: "States Licensed", icon: ShieldIcon },
+    { value: "FL & TX", label: "States Licensed", icon: ShieldIcon },
     { value: "4.9★", label: "Customer Rating", icon: Award }
   ];
 
