@@ -18,6 +18,8 @@ import { AutoInsurancePage } from './pages/AutoInsurance';
 import { CommercialInsurancePage } from './pages/CommercialInsurance';
 import { MedicaidPage } from './pages/Medicaid';
 import { BecomeAgentPage } from './pages/BecomeAgent';
+import { DentalVisionPage } from './pages/DentalVision';
+import { GetCoveredPage } from './pages/GetCovered';
 import { LanguageProvider, useLanguage } from './i18n';
 
 // Animations
@@ -324,7 +326,7 @@ const ProductsSection = () => {
       icon: HeartIcon,
       image: "/images/obamacare-hero.png",
       link: "/obamacare",
-      quoteUrl: "https://www.healthcare.gov/see-plans/",
+      quoteUrl: "https://www.healthsherpa.com/?_agent_id=javisinsuranceservices&ljs=es-MX",
       color: "bg-bright-red",
       gradient: "from-bright-red to-bright-red-light",
       features: t.productCards.obamacareFeatures
@@ -336,7 +338,7 @@ const ProductsSection = () => {
       icon: FamilyIcon,
       image: "/images/medicare-hero.png",
       link: "/medicare",
-      quoteUrl: "https://www.medicare.gov/plan-compare/",
+      quoteUrl: "#contact",
       color: "bg-deep-blue",
       gradient: "from-deep-blue to-light-blue",
       features: t.productCards.medicareFeatures
@@ -690,7 +692,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold mb-1">{t.contact.callUsDirectly}</h4>
-                  <a href="tel:310-437-2766" className="text-gradient-secondary font-medium hover:underline">{t.common.phone}</a>
+                  <a href="tel:305-390-8679" className="text-gradient-secondary font-medium hover:underline">{t.common.phone}</a>
                   <p className="text-text-muted text-sm">{t.contact.businessHours}</p>
                 </div>
               </div>
@@ -751,6 +753,8 @@ export default function App() {
           <Route path="/auto" element={<AutoInsurancePage />} />
           <Route path="/commercial" element={<CommercialInsurancePage />} />
           <Route path="/medicaid" element={<MedicaidPage />} />
+          <Route path="/dental-vision" element={<DentalVisionPage />} />
+          <Route path="/get-covered" element={<GetCoveredPage />} />
           <Route path="/become-agent" element={<BecomeAgentPage />} />
         </Routes>
       </BrowserRouter>

@@ -21,7 +21,16 @@ export const QuoteButton = ({
 }: QuoteButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
+  // Internal anchors (e.g. "#contact") scroll within the page in the same tab
+  const isAnchor = href.startsWith('#');
+
   const handleClick = (e: React.MouseEvent) => {
+    if (isAnchor) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
     if (showLoadingState) {
       setIsLoading(true);
       // Reset loading state after navigation starts
@@ -47,8 +56,8 @@ export const QuoteButton = ({
   return (
     <motion.a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isAnchor ? undefined : "_blank"}
+      rel={isAnchor ? undefined : "noopener noreferrer"}
       onClick={handleClick}
       whileHover={{ scale: isLoading ? 1 : 1.05 }}
       whileTap={{ scale: isLoading ? 1 : 0.98 }}
@@ -120,6 +129,16 @@ export const StickyQuoteButton = ({
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
+  const isAnchor = href.startsWith('#');
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isAnchor) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
@@ -129,8 +148,9 @@ export const StickyQuoteButton = ({
     >
       <motion.a
         href={href}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={isAnchor ? undefined : "_blank"}
+        rel={isAnchor ? undefined : "noopener noreferrer"}
+        onClick={handleClick}
         whileTap={{ scale: 0.95 }}
         className="flex items-center gap-2 bg-bright-red text-white px-6 py-4 rounded-full font-bold shadow-2xl shadow-bright-red/30"
       >

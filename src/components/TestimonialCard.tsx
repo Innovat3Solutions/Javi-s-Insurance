@@ -71,7 +71,7 @@ const StarRating = ({ rating }: { rating: number }) => (
   </div>
 );
 
-export const TestimonialCard = ({ testimonial, featured = false }: { testimonial: Testimonial; featured?: boolean }) => {
+export const TestimonialCard = ({ testimonial, featured = false }: { testimonial: Testimonial; featured?: boolean; key?: React.Key }) => {
   if (featured) {
     return (
       <motion.div

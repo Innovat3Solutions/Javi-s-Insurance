@@ -9,28 +9,176 @@ import {
     PhoneIcon
 } from '../components/BrandIcons';
 import { Car, Send, Loader2, Shield, CheckCircle } from 'lucide-react';
+import { useLanguage } from '../i18n';
 
 const AUTO_QUOTE_URL = "#contact";
 
-const coverageTypes = [
-    {
-        title: "Full Coverage",
-        description: "Comprehensive protection including collision, liability, and uninsured motorist coverage.",
-        icon: ShieldIcon
+const coverageTypeIcons = [ShieldIcon, Car, ShieldIcon];
+
+const copy = {
+    en: {
+        heroBadge: "Javi's Insurance Services",
+        heroTitlePrefix: "Affordable ",
+        heroTitleHighlight: "Auto Insurance",
+        heroDescription: "Protect yourself on the road with comprehensive auto insurance. Get competitive rates from top carriers with flexible coverage options.",
+        getAutoQuote: "Get Auto Quote",
+        coverageBadge: "Coverage Options",
+        coverageTitlePrefix: "Auto ",
+        coverageTitleHighlight: "Protection",
+        coverageSubtitle: "Choose the coverage level that fits your needs and budget.",
+        coverageTitles: ["Full Coverage", "Liability Only", "Motorcycle Insurance"],
+        coverageDescriptions: [
+            "Comprehensive protection including collision, liability, and uninsured motorist coverage.",
+            "Basic coverage that meets state minimum requirements for bodily injury and property damage.",
+            "Specialized coverage for motorcycles with flexible deductible options."
+        ],
+        processBadge: "Simple Process",
+        processTitlePrefix: "Get ",
+        processTitleHighlight: "Covered Fast",
+        whyBadge: "Expert Protection",
+        whyTitlePrefix: "Drive with ",
+        whyTitleHighlight: "Confidence",
+        whyDescription: "Finding the right auto insurance shouldn't be a hassle. Our team of experts works with leading carriers to secure you the best rates and comprehensive protection tailored exactly to your needs.",
+        customCoverageTitle: "Custom Coverage",
+        customCoverageDesc: "We compare multiple options so you never pay for more than you need, and never settle for less.",
+        topCarriersTitle: "Top Rated Carriers",
+        topCarriersDesc: "We only partner with trusted names in auto insurance ensuring prompt claim resolving and peace of mind.",
+        formBadge: "Get a Quote",
+        formTitlePrefix: "Auto Insurance ",
+        formTitleHighlight: "Quote Request",
+        formSubtitle: "Fill out the form below and one of our licensed agents will contact you with personalized quotes.",
+        successTitle: "Quote Request Received!",
+        successMessage: "Thank you for your interest. A licensed agent will contact you shortly to discuss your auto insurance options.",
+        personalInfo: "Personal Information",
+        firstName: "First Name",
+        lastName: "Last Name",
+        phoneNumber: "Phone Number",
+        emailAddress: "Email Address",
+        zipCode: "Zip Code",
+        preferredContact: "Preferred Contact Method",
+        selectPreference: "Select preference",
+        phoneCall: "Phone Call",
+        textMessage: "Text Message",
+        emailOption: "Email",
+        vehicleInfo: "Vehicle Information",
+        year: "Year",
+        yearPlaceholder: "Year",
+        make: "Make",
+        model: "Model",
+        ownership: "Ownership",
+        select: "Select",
+        owned: "Owned",
+        financed: "Financed",
+        leased: "Leased",
+        driverInfo: "Driver Information",
+        dateOfBirth: "Date of Birth",
+        licenseState: "License State",
+        accidentsTickets: "Accidents or Tickets (Last 3 to 5 Years)",
+        none: "None",
+        oneIncident: "1 incident",
+        twoIncidents: "2 incidents",
+        threeOrMore: "3 or more",
+        coverageTypeDesired: "Coverage Type Desired",
+        selectCoverage: "Select coverage",
+        fullCoverage: "Full Coverage",
+        liabilityOnly: "Liability Only",
+        currentInsurance: "Current Insurance",
+        currentInsuranceCompany: "Current Insurance Company",
+        currentInsurerPlaceholder: "Current insurer (if any)",
+        policyExpirationDate: "Policy Expiration Date",
+        desiredStartDate: "Desired Start Date",
+        additionalNotes: "Additional Notes",
+        additionalNotesPlaceholder: "Any additional information about your vehicle or coverage needs...",
+        consent: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my auto insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.",
+        sslEncrypted: "256 bit SSL Encrypted",
+        dataSecure: "Your data is secure",
+        submitting: "Submitting...",
+        getFreeQuote: "Get My Free Quote"
     },
-    {
-        title: "Liability Only",
-        description: "Basic coverage that meets state minimum requirements for bodily injury and property damage.",
-        icon: Car
-    },
-    {
-        title: "Motorcycle Insurance",
-        description: "Specialized coverage for motorcycles with flexible deductible options.",
-        icon: ShieldIcon
+    es: {
+        heroBadge: "Javi's Insurance Services",
+        heroTitlePrefix: "Seguro de Auto ",
+        heroTitleHighlight: "Económico",
+        heroDescription: "Protéjase en la carretera con un seguro de auto integral. Obtenga tarifas competitivas de las mejores aseguradoras con opciones de cobertura flexibles.",
+        getAutoQuote: "Obtener Cotización",
+        coverageBadge: "Opciones de Cobertura",
+        coverageTitlePrefix: "Protección ",
+        coverageTitleHighlight: "para su Auto",
+        coverageSubtitle: "Elija el nivel de cobertura que se ajuste a sus necesidades y presupuesto.",
+        coverageTitles: ["Cobertura Completa", "Solo Responsabilidad Civil", "Seguro de Motocicleta"],
+        coverageDescriptions: [
+            "Protección integral que incluye colisión, responsabilidad civil y cobertura de conductor sin seguro.",
+            "Cobertura básica que cumple con los requisitos mínimos del estado para lesiones corporales y daños a la propiedad.",
+            "Cobertura especializada para motocicletas con opciones de deducible flexibles."
+        ],
+        processBadge: "Proceso Sencillo",
+        processTitlePrefix: "Asegúrese ",
+        processTitleHighlight: "Rápidamente",
+        whyBadge: "Protección Experta",
+        whyTitlePrefix: "Conduzca con ",
+        whyTitleHighlight: "Confianza",
+        whyDescription: "Encontrar el seguro de auto adecuado no debería ser complicado. Nuestro equipo de expertos trabaja con las principales aseguradoras para conseguirle las mejores tarifas y una protección integral adaptada exactamente a sus necesidades.",
+        customCoverageTitle: "Cobertura Personalizada",
+        customCoverageDesc: "Comparamos múltiples opciones para que nunca pague más de lo que necesita, ni se conforme con menos.",
+        topCarriersTitle: "Aseguradoras de Primer Nivel",
+        topCarriersDesc: "Solo trabajamos con nombres de confianza en seguros de auto, garantizando una pronta resolución de reclamos y tranquilidad.",
+        formBadge: "Obtenga una Cotización",
+        formTitlePrefix: "Solicitud de Cotización ",
+        formTitleHighlight: "de Seguro de Auto",
+        formSubtitle: "Complete el siguiente formulario y uno de nuestros agentes licenciados se comunicará con usted con cotizaciones personalizadas.",
+        successTitle: "¡Solicitud de Cotización Recibida!",
+        successMessage: "Gracias por su interés. Un agente licenciado se comunicará con usted en breve para hablar sobre sus opciones de seguro de auto.",
+        personalInfo: "Información Personal",
+        firstName: "Nombre",
+        lastName: "Apellido",
+        phoneNumber: "Número de Teléfono",
+        emailAddress: "Correo Electrónico",
+        zipCode: "Código Postal",
+        preferredContact: "Método de Contacto Preferido",
+        selectPreference: "Seleccione una preferencia",
+        phoneCall: "Llamada Telefónica",
+        textMessage: "Mensaje de Texto",
+        emailOption: "Correo Electrónico",
+        vehicleInfo: "Información del Vehículo",
+        year: "Año",
+        yearPlaceholder: "Año",
+        make: "Marca",
+        model: "Modelo",
+        ownership: "Propiedad",
+        select: "Seleccione",
+        owned: "Propio",
+        financed: "Financiado",
+        leased: "Arrendado",
+        driverInfo: "Información del Conductor",
+        dateOfBirth: "Fecha de Nacimiento",
+        licenseState: "Estado de la Licencia",
+        accidentsTickets: "Accidentes o Multas (Últimos 3 a 5 Años)",
+        none: "Ninguno",
+        oneIncident: "1 incidente",
+        twoIncidents: "2 incidentes",
+        threeOrMore: "3 o más",
+        coverageTypeDesired: "Tipo de Cobertura Deseada",
+        selectCoverage: "Seleccione cobertura",
+        fullCoverage: "Cobertura Completa",
+        liabilityOnly: "Solo Responsabilidad Civil",
+        currentInsurance: "Seguro Actual",
+        currentInsuranceCompany: "Compañía de Seguro Actual",
+        currentInsurerPlaceholder: "Aseguradora actual (si tiene)",
+        policyExpirationDate: "Fecha de Vencimiento de la Póliza",
+        desiredStartDate: "Fecha de Inicio Deseada",
+        additionalNotes: "Notas Adicionales",
+        additionalNotesPlaceholder: "Cualquier información adicional sobre su vehículo o necesidades de cobertura...",
+        consent: "Doy mi consentimiento para que Javi's Insurance Services use esta información para preparar una cotización o estimación de mi seguro de auto. Acepto ser contactado por llamada, mensaje de texto o correo electrónico con respecto a mi solicitud de seguro. Pueden aplicarse tarifas de mensajes y datos.",
+        sslEncrypted: "Encriptación SSL de 256 bits",
+        dataSecure: "Sus datos están seguros",
+        submitting: "Enviando...",
+        getFreeQuote: "Obtener Mi Cotización Gratis"
     }
-];
+};
 
 export const AutoInsurancePage = () => {
+    const { language } = useLanguage();
+    const c = copy[language];
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -106,30 +254,30 @@ export const AutoInsurancePage = () => {
                     >
                         <span className="badge-trust">
                             <Car size={16} className="text-bright-red" />
-                            Javi's Insurance Services
+                            {c.heroBadge}
                         </span>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-premium-heading">
-                            Affordable <span className="text-gradient-primary">Auto Insurance</span>
+                            {c.heroTitlePrefix}<span className="text-gradient-primary">{c.heroTitleHighlight}</span>
                         </h1>
 
                         <p className="text-xl text-text-muted max-w-lg leading-relaxed">
-                            Protect yourself on the road with comprehensive auto insurance. Get competitive rates from top carriers with flexible coverage options.
+                            {c.heroDescription}
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4">
                             <QuoteButton
                                 href={AUTO_QUOTE_URL}
-                                label="Get Auto Quote"
+                                label={c.getAutoQuote}
                                 variant="primary"
                                 size="large"
                             />
                             <a
-                                href="tel:310-437-2766"
+                                href="tel:305-390-8679"
                                 className="btn-outline flex items-center justify-center gap-2"
                             >
                                 <PhoneIcon size={20} className="text-current" />
-                                (310) 437-2766
+                                (305) 390-8679
                             </a>
                         </div>
                     </motion.div>
@@ -166,19 +314,19 @@ export const AutoInsurancePage = () => {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <span className="badge-trust mb-4">Coverage Options</span>
+                        <span className="badge-trust mb-4">{c.coverageBadge}</span>
                         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-premium-heading">
-                            Auto <span className="text-gradient-primary">Protection</span>
+                            {c.coverageTitlePrefix}<span className="text-gradient-primary">{c.coverageTitleHighlight}</span>
                         </h2>
                         <p className="text-text-muted text-lg max-w-2xl mx-auto">
-                            Choose the coverage level that fits your needs and budget.
+                            {c.coverageSubtitle}
                         </p>
                     </motion.div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        {coverageTypes.map((type, i) => (
+                        {coverageTypeIcons.map((Icon, i) => (
                             <motion.div
-                                key={type.title}
+                                key={c.coverageTitles[i]}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -186,10 +334,10 @@ export const AutoInsurancePage = () => {
                                 className="bg-cream p-8 rounded-2xl border border-gray-100 hover:shadow-card transition-all"
                             >
                                 <div className="w-14 h-14 bg-bright-red/10 rounded-xl flex items-center justify-center mb-6">
-                                    <type.icon size={28} className="text-bright-red" />
+                                    <Icon size={28} className="text-bright-red" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3">{type.title}</h3>
-                                <p className="text-text-muted">{type.description}</p>
+                                <h3 className="text-xl font-bold mb-3">{c.coverageTitles[i]}</h3>
+                                <p className="text-text-muted">{c.coverageDescriptions[i]}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -205,9 +353,9 @@ export const AutoInsurancePage = () => {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <span className="badge-trust mb-4">Simple Process</span>
+                        <span className="badge-trust mb-4">{c.processBadge}</span>
                         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-premium-heading">
-                            Get <span className="text-gradient-primary">Covered Fast</span>
+                            {c.processTitlePrefix}<span className="text-gradient-primary">{c.processTitleHighlight}</span>
                         </h2>
                     </motion.div>
                     <ProcessTimelineCompact product="auto" />
@@ -223,12 +371,12 @@ export const AutoInsurancePage = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="badge-trust mb-4">Expert Protection</span>
+                            <span className="badge-trust mb-4">{c.whyBadge}</span>
                             <h2 className="text-4xl font-bold mb-6 text-premium-heading">
-                                Drive with <span className="text-gradient-primary">Confidence</span>
+                                {c.whyTitlePrefix}<span className="text-gradient-primary">{c.whyTitleHighlight}</span>
                             </h2>
                             <p className="text-text-muted text-lg mb-8">
-                                Finding the right auto insurance shouldn't be a hassle. Our team of experts works with leading carriers to secure you the best rates and comprehensive protection tailored exactly to your needs.
+                                {c.whyDescription}
                             </p>
 
                             <div className="space-y-6">
@@ -237,8 +385,8 @@ export const AutoInsurancePage = () => {
                                         <Car size={24} className="text-deep-blue" />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold mb-1">Custom Coverage</h4>
-                                        <p className="text-text-muted text-sm">We compare multiple options so you never pay for more than you need, and never settle for less.</p>
+                                        <h4 className="font-bold mb-1">{c.customCoverageTitle}</h4>
+                                        <p className="text-text-muted text-sm">{c.customCoverageDesc}</p>
                                     </div>
                                 </div>
 
@@ -247,8 +395,8 @@ export const AutoInsurancePage = () => {
                                         <ShieldIcon size={24} className="text-bright-red" />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold mb-1">Top Rated Carriers</h4>
-                                        <p className="text-text-muted text-sm">We only partner with trusted names in auto insurance ensuring prompt claim resolving and peace of mind.</p>
+                                        <h4 className="font-bold mb-1">{c.topCarriersTitle}</h4>
+                                        <p className="text-text-muted text-sm">{c.topCarriersDesc}</p>
                                     </div>
                                 </div>
                             </div>
@@ -280,12 +428,12 @@ export const AutoInsurancePage = () => {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <span className="badge-trust mb-4">Get a Quote</span>
+                        <span className="badge-trust mb-4">{c.formBadge}</span>
                         <h2 className="text-4xl font-bold mb-4 text-premium-heading">
-                            Auto Insurance <span className="text-gradient-primary">Quote Request</span>
+                            {c.formTitlePrefix}<span className="text-gradient-primary">{c.formTitleHighlight}</span>
                         </h2>
                         <p className="text-text-muted text-lg max-w-2xl mx-auto">
-                            Fill out the form below and one of our licensed agents will contact you with personalized quotes.
+                            {c.formSubtitle}
                         </p>
                     </motion.div>
 
@@ -296,9 +444,9 @@ export const AutoInsurancePage = () => {
                             className="bg-green-50 border border-green-200 rounded-2xl p-12 text-center"
                         >
                             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-                            <h3 className="text-2xl font-bold text-green-800 mb-3">Quote Request Received!</h3>
+                            <h3 className="text-2xl font-bold text-green-800 mb-3">{c.successTitle}</h3>
                             <p className="text-green-700">
-                                Thank you for your interest. A licensed agent will contact you shortly to discuss your auto insurance options.
+                                {c.successMessage}
                             </p>
                         </motion.div>
                     ) : (
@@ -310,11 +458,11 @@ export const AutoInsurancePage = () => {
                             className="bg-cream rounded-3xl p-8 md:p-12 shadow-card"
                         >
                             {/* Personal Information */}
-                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">Personal Information</h3>
+                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">{c.personalInfo}</h3>
                             <div className="grid md:grid-cols-2 gap-6 mb-8">
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        First Name <span className="text-gradient-primary">*</span>
+                                        {c.firstName} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -328,7 +476,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Last Name <span className="text-gradient-primary">*</span>
+                                        {c.lastName} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -342,7 +490,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Phone Number <span className="text-gradient-primary">*</span>
+                                        {c.phoneNumber} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="tel"
@@ -357,7 +505,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Email Address <span className="text-gradient-primary">*</span>
+                                        {c.emailAddress} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="email"
@@ -371,7 +519,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Zip Code <span className="text-gradient-primary">*</span>
+                                        {c.zipCode} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -385,7 +533,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Preferred Contact Method
+                                        {c.preferredContact}
                                     </label>
                                     <select
                                         name="preferredContact"
@@ -393,20 +541,20 @@ export const AutoInsurancePage = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
                                     >
-                                        <option value="">Select preference</option>
-                                        <option value="call">Phone Call</option>
-                                        <option value="text">Text Message</option>
-                                        <option value="email">Email</option>
+                                        <option value="">{c.selectPreference}</option>
+                                        <option value="call">{c.phoneCall}</option>
+                                        <option value="text">{c.textMessage}</option>
+                                        <option value="email">{c.emailOption}</option>
                                     </select>
                                 </div>
                             </div>
 
                             {/* Vehicle Information */}
-                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">Vehicle Information</h3>
+                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">{c.vehicleInfo}</h3>
                             <div className="grid md:grid-cols-4 gap-6 mb-6">
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Year <span className="text-gradient-primary">*</span>
+                                        {c.year} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <select
                                         name="vehicleYear"
@@ -415,7 +563,7 @@ export const AutoInsurancePage = () => {
                                         required
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
                                     >
-                                        <option value="">Year</option>
+                                        <option value="">{c.yearPlaceholder}</option>
                                         {yearOptions.map(year => (
                                             <option key={year} value={year}>{year}</option>
                                         ))}
@@ -423,7 +571,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Make <span className="text-gradient-primary">*</span>
+                                        {c.make} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -437,7 +585,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Model <span className="text-gradient-primary">*</span>
+                                        {c.model} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -450,27 +598,27 @@ export const AutoInsurancePage = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">Ownership</label>
+                                    <label className="block text-sm font-medium text-text-main mb-2">{c.ownership}</label>
                                     <select
                                         name="vehicleOwnership"
                                         value={formData.vehicleOwnership}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
                                     >
-                                        <option value="">Select</option>
-                                        <option value="owned">Owned</option>
-                                        <option value="financed">Financed</option>
-                                        <option value="leased">Leased</option>
+                                        <option value="">{c.select}</option>
+                                        <option value="owned">{c.owned}</option>
+                                        <option value="financed">{c.financed}</option>
+                                        <option value="leased">{c.leased}</option>
                                     </select>
                                 </div>
                             </div>
 
                             {/* Driver Information */}
-                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">Driver Information</h3>
+                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">{c.driverInfo}</h3>
                             <div className="grid md:grid-cols-2 gap-6 mb-8">
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Date of Birth <span className="text-gradient-primary">*</span>
+                                        {c.dateOfBirth} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="date"
@@ -483,7 +631,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        License State <span className="text-gradient-primary">*</span>
+                                        {c.licenseState} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
                                         type="text"
@@ -498,7 +646,7 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Accidents or Tickets (Last 3 to 5 Years)
+                                        {c.accidentsTickets}
                                     </label>
                                     <select
                                         name="accidentsTickets"
@@ -506,16 +654,16 @@ export const AutoInsurancePage = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
                                     >
-                                        <option value="">Select</option>
-                                        <option value="0">None</option>
-                                        <option value="1">1 incident</option>
-                                        <option value="2">2 incidents</option>
-                                        <option value="3+">3 or more</option>
+                                        <option value="">{c.select}</option>
+                                        <option value="0">{c.none}</option>
+                                        <option value="1">{c.oneIncident}</option>
+                                        <option value="2">{c.twoIncidents}</option>
+                                        <option value="3+">{c.threeOrMore}</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        Coverage Type Desired
+                                        {c.coverageTypeDesired}
                                     </label>
                                     <select
                                         name="coverageType"
@@ -523,29 +671,29 @@ export const AutoInsurancePage = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
                                     >
-                                        <option value="">Select coverage</option>
-                                        <option value="full">Full Coverage</option>
-                                        <option value="liability">Liability Only</option>
+                                        <option value="">{c.selectCoverage}</option>
+                                        <option value="full">{c.fullCoverage}</option>
+                                        <option value="liability">{c.liabilityOnly}</option>
                                     </select>
                                 </div>
                             </div>
 
                             {/* Current Insurance */}
-                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">Current Insurance</h3>
+                            <h3 className="text-xl font-bold mb-6 text-gradient-primary">{c.currentInsurance}</h3>
                             <div className="grid md:grid-cols-3 gap-6 mb-8">
                                 <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">Current Insurance Company</label>
+                                    <label className="block text-sm font-medium text-text-main mb-2">{c.currentInsuranceCompany}</label>
                                     <input
                                         type="text"
                                         name="currentInsurance"
                                         value={formData.currentInsurance}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all"
-                                        placeholder="Current insurer (if any)"
+                                        placeholder={c.currentInsurerPlaceholder}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">Policy Expiration Date</label>
+                                    <label className="block text-sm font-medium text-text-main mb-2">{c.policyExpirationDate}</label>
                                     <input
                                         type="date"
                                         name="expirationDate"
@@ -555,7 +703,7 @@ export const AutoInsurancePage = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">Desired Start Date</label>
+                                    <label className="block text-sm font-medium text-text-main mb-2">{c.desiredStartDate}</label>
                                     <input
                                         type="date"
                                         name="desiredStartDate"
@@ -568,14 +716,14 @@ export const AutoInsurancePage = () => {
 
                             {/* Additional Notes */}
                             <div className="mb-8">
-                                <label className="block text-sm font-medium text-text-main mb-2">Additional Notes</label>
+                                <label className="block text-sm font-medium text-text-main mb-2">{c.additionalNotes}</label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     rows={4}
                                     className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all resize-none"
-                                    placeholder="Any additional information about your vehicle or coverage needs..."
+                                    placeholder={c.additionalNotesPlaceholder}
                                 />
                             </div>
 
@@ -584,7 +732,7 @@ export const AutoInsurancePage = () => {
                                 <label className="flex items-start gap-3 cursor-pointer">
                                     <input type="checkbox" required className="mt-1 w-5 h-5 text-bright-red border-gray-300 rounded focus:ring-bright-red" />
                                     <span className="text-sm text-text-muted">
-                                        I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my auto insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.
+                                        {c.consent}
                                     </span>
                                 </label>
                             </div>
@@ -593,11 +741,11 @@ export const AutoInsurancePage = () => {
                             <div className="flex items-center justify-center gap-6 mb-8 text-xs text-text-muted">
                                 <div className="flex items-center gap-2">
                                     <Shield className="w-4 h-4 text-bright-red" />
-                                    <span>256 bit SSL Encrypted</span>
+                                    <span>{c.sslEncrypted}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <ShieldIcon size={16} className="text-bright-red" />
-                                    <span>Your data is secure</span>
+                                    <span>{c.dataSecure}</span>
                                 </div>
                             </div>
 
@@ -615,12 +763,12 @@ export const AutoInsurancePage = () => {
                                 {isSubmitting ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        Submitting...
+                                        {c.submitting}
                                     </>
                                 ) : (
                                     <>
                                         <Send className="w-5 h-5" />
-                                        Get My Free Quote
+                                        {c.getFreeQuote}
                                     </>
                                 )}
                             </motion.button>
@@ -632,7 +780,7 @@ export const AutoInsurancePage = () => {
             <Footer />
 
             {/* Sticky Mobile Quote Button */}
-            <StickyQuoteButton href={AUTO_QUOTE_URL} label="Get Auto Quote" />
+            <StickyQuoteButton href={AUTO_QUOTE_URL} label={c.getAutoQuote} />
         </div>
     );
 };

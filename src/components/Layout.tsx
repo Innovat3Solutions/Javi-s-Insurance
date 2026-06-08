@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Facebook, Twitter, Instagram, Mail, Menu, X, Shield, Lock, Award, Phone, ChevronDown, Heart, Home, Car, Building2, Globe } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Menu, X, Shield, Lock, Award, Phone, ChevronDown, Heart, Home, Car, Building2, Globe, Smile } from 'lucide-react';
 import { ShieldLogo, PhoneIcon, EmailIcon, FamilyIcon, ShieldPlus } from './BrandIcons';
 import { useLanguage } from '../i18n';
 
@@ -61,7 +61,8 @@ export const Navbar = () => {
   const healthPlanLinks = [
     { path: '/obamacare', label: t.healthPlanLinks.obamacare, icon: Heart, desc: t.healthPlanLinks.obamacareDesc },
     { path: '/medicare', label: t.healthPlanLinks.medicare, icon: FamilyIcon, desc: t.healthPlanLinks.medicareDesc },
-    { path: '/medicaid', label: t.healthPlanLinks.medicaid, icon: ShieldPlus, desc: t.healthPlanLinks.medicaidDesc }
+    { path: '/medicaid', label: t.healthPlanLinks.medicaid, icon: ShieldPlus, desc: t.healthPlanLinks.medicaidDesc },
+    { path: '/dental-vision', label: t.healthPlanLinks.dentalVision, icon: Smile, desc: t.healthPlanLinks.dentalVisionDesc }
   ];
 
   const personalInsuranceLinks = [
@@ -237,14 +238,14 @@ export const Navbar = () => {
               <span className="uppercase font-bold">{language === 'en' ? 'ES' : 'EN'}</span>
             </button>
             <a
-              href="tel:310-437-2766"
+              href="tel:305-390-8679"
               className="flex items-center gap-2 text-sm font-medium text-deep-blue hover:text-bright-red transition-colors whitespace-nowrap"
             >
               <Phone className="w-4 h-4 flex-shrink-0" />
-              <span className="whitespace-nowrap">(310) 437-2766</span>
+              <span className="whitespace-nowrap">(305) 390-8679</span>
             </a>
             <Link
-              to="/obamacare"
+              to="/get-covered"
               className={`px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg cursor-pointer whitespace-nowrap ${isScrolled
                 ? 'bg-bright-red text-white hover:bg-bright-red/90'
                 : 'bg-bright-red text-white hover:bg-bright-red/90'
@@ -434,14 +435,14 @@ export const Navbar = () => {
                 className="space-y-4 pt-6 mt-6 border-t border-light-blue/20"
               >
                 <a
-                  href="tel:310-437-2766"
+                  href="tel:305-390-8679"
                   className="flex items-center justify-center gap-2 w-full py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-bold hover:bg-white/20 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  (310) 437 2766
+                  (305) 390-8679
                 </a>
                 <Link
-                  to="/obamacare"
+                  to="/get-covered"
                   className="flex items-center justify-center gap-2 w-full py-4 bg-bright-red text-white rounded-xl font-bold hover:bg-[#ff5252] transition-colors shadow-lg shadow-bright-red/20"
                 >
                   {t.nav.getQuote}
@@ -572,7 +573,7 @@ export const Footer = () => {
 
             {/* CTA Button */}
             <a
-              href="tel:310-437-2766"
+              href="tel:305-390-8679"
               className="relative z-10 bg-white/95 text-deep-blue px-10 py-4 rounded-full font-bold hover:bg-white transition-colors shadow-xl text-lg min-w-[160px] text-center backdrop-blur-sm"
             >
               {t.common.getStarted}
@@ -592,7 +593,7 @@ export const Footer = () => {
               Obamacare Enrollment Specialists. We protect your future with comprehensive insurance solutions tailored to your needs.
             </p>
             <div className="flex flex-col gap-3 text-sm text-text-muted font-medium">
-              <a href="tel:310-437-2766" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
+              <a href="tel:305-390-8679" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
                 <PhoneIcon size={18} className="text-bright-red" />
                 <span>{t.common.phone}</span>
               </a>
@@ -610,6 +611,7 @@ export const Footer = () => {
                 <li><Link to="/obamacare" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.obamacare}</Link></li>
                 <li><Link to="/medicare" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.medicare}</Link></li>
                 <li><Link to="/medicaid" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.medicaid}</Link></li>
+                <li><Link to="/dental-vision" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.dentalVision}</Link></li>
                 <li><Link to="/home-insurance" className="hover:text-deep-blue transition-colors">{t.productCards.homeInsurance}</Link></li>
                 <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.products.lifeTitle}</Link></li>
                 <li><Link to="/auto" className="hover:text-deep-blue transition-colors">{t.productCards.autoInsurance}</Link></li>

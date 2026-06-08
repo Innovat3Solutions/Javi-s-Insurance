@@ -1,20 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Phone, Mail, User, MessageSquare, CheckCircle, Shield, Lock, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Phone, Mail, User, MessageSquare, CheckCircle, Shield, Lock, AlertCircle, Loader2, ChevronDown, Info } from 'lucide-react';
 import { useLanguage } from '../i18n';
+import { productForms, FormField, ProductType } from './formSchemas';
 
 interface ContactFormProps {
-  productType: 'obamacare' | 'medicare' | 'health' | 'auto' | 'commercial' | 'general';
+  productType: ProductType;
   title?: string;
   subtitle?: string;
 }
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  phone?: string;
-  consent?: string;
-}
+type FormValues = Record<string, string | boolean>;
+type FormErrors = Record<string, string | undefined>;
 
 // Phone number formatting helper
 const formatPhoneNumber = (value: string): string => {
@@ -31,9 +28,11 @@ const isValidEmail = (email: string): boolean => {
 
 // Phone validation (US format)
 const isValidPhone = (phone: string): boolean => {
-  const numbers = phone.replace(/\D/g, '');
-  return numbers.length === 10;
+  return phone.replace(/\D/g, '').length === 10;
 };
+
+// ZIP validation (5 digits)
+const isValidZip = (zip: string): boolean => /^\d{5}$/.test(zip.trim());
 
 export const ContactForm = ({
   productType,
@@ -41,20 +40,34 @@ export const ContactForm = ({
   subtitle
 }: ContactFormProps) => {
   const { t } = useLanguage();
+  const config = productForms[productType] ?? productForms.general;
+  // qual is a flat label map; cast for dynamic key access
+  const q = t.contactForm.qual as unknown as Record<string, string>;
   const formTitle = title || t.contactForm.getMoreInfo;
   const formSubtitle = subtitle || t.contactForm.formSubtitle;
+  const showMessage = config.showMessage !== false;
+  const isMedicare = config.compliance === 'medicare';
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    consent: false
-  });
+  // Build the initial flat value object from the schema
+  const buildInitial = (): FormValues => {
+    const base: FormValues = config.splitName
+      ? { firstName: '', lastName: '' }
+      : { name: '' };
+    base.email = '';
+    base.phone = '';
+    base.message = '';
+    config.fields.forEach(f => { base[f.id] = ''; });
+    base.consent = false;
+    return base;
+  };
+
+  const [formData, setFormData] = useState<FormValues>(buildInitial);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const str = (key: string) => (formData[key] as string) ?? '';
 
   // Validate a single field
   const validateField = useCallback((name: string, value: string): string | undefined => {
@@ -62,88 +75,161 @@ export const ContactForm = ({
       case 'name':
         if (!value.trim()) return t.contactForm.nameRequired;
         if (value.trim().length < 2) return t.contactForm.enterFullName;
-        break;
+        return;
+      case 'firstName':
+        if (!value.trim()) return q.fieldRequired;
+        return;
+      case 'lastName':
+        if (!value.trim()) return q.fieldRequired;
+        return;
       case 'email':
         if (!value.trim()) return t.contactForm.emailRequired;
         if (!isValidEmail(value)) return t.contactForm.validEmail;
-        break;
+        return;
       case 'phone':
         if (!value.trim()) return t.contactForm.phoneRequired;
         if (!isValidPhone(value)) return t.contactForm.validPhone;
-        break;
+        return;
+    }
+    // Schema-driven fields
+    const field = config.fields.find(f => f.id === name);
+    if (field) {
+      if (field.required && !value.trim()) return q.fieldRequired;
+      if (field.type === 'zip' && value.trim() && !isValidZip(value)) return q.fieldRequired;
     }
     return undefined;
-  }, [t]);
+  }, [t, q, config]);
 
-  // Validate all fields
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {
-      name: validateField('name', formData.name),
-      email: validateField('email', formData.email),
-      phone: validateField('phone', formData.phone),
-      consent: !formData.consent ? t.contactForm.consentRequired : undefined
-    };
+    const newErrors: FormErrors = {};
+    const nameFields = config.splitName ? ['firstName', 'lastName'] : ['name'];
+    [...nameFields, 'email', 'phone'].forEach(name => {
+      newErrors[name] = validateField(name, str(name));
+    });
+    config.fields.forEach(f => {
+      newErrors[f.id] = validateField(f.id, str(f.id));
+    });
+    newErrors.consent = !formData.consent ? t.contactForm.consentRequired : undefined;
     setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error);
+    return !Object.values(newErrors).some(Boolean);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mark all fields as touched
-    setTouched({ name: true, email: true, phone: true, consent: true });
+    const allKeys = [
+      ...(config.splitName ? ['firstName', 'lastName'] : ['name']),
+      'email', 'phone', 'consent',
+      ...config.fields.map(f => f.id),
+    ];
+    setTouched(allKeys.reduce((acc, k) => ({ ...acc, [k]: true }), {}));
 
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Here you would typically send the form data to your backend
+    // Send the form data to your backend here.
     console.log('Form submitted:', { ...formData, productType });
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-
-    // Handle checkbox inputs
-    if (type === 'checkbox') {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prev => ({
-        ...prev,
-        [name]: checked
-      }));
-      if (errors[name as keyof FormErrors]) {
-        setErrors(prev => ({ ...prev, [name]: undefined }));
-      }
-      return;
-    }
-
-    // Special handling for phone number formatting
-    const newValue = name === 'phone' ? formatPhoneNumber(value) : value;
-
-    setFormData(prev => ({
-      ...prev,
-      [name]: newValue
-    }));
-
-    // Clear error when user starts typing
-    if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
+  const setValue = (name: string, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: undefined }));
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      setValue(name, (e.target as HTMLInputElement).checked);
+      return;
+    }
+    setValue(name, name === 'phone' ? formatPhoneNumber(value) : value);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTouched(prev => ({ ...prev, [name]: true }));
-
     const error = validateField(name, value);
-    if (error) {
-      setErrors(prev => ({ ...prev, [name]: error }));
+    if (error) setErrors(prev => ({ ...prev, [name]: error }));
+  };
+
+  // Shared input class
+  const inputClass = (name: string) =>
+    `w-full px-4 py-4 border rounded-xl outline-none transition-all ${touched[name] && errors[name]
+      ? 'border-bright-red focus:border-bright-red focus:ring-2 focus:ring-bright-red/20'
+      : 'border-silver/50 focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20'
+    }`;
+
+  // Render function (not a nested component) so inputs keep focus / animations don't replay on each keystroke
+  const renderFieldError = (name: string) => (
+    <AnimatePresence>
+      {touched[name] && errors[name] && (
+        <motion.p
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -5 }}
+          className="text-bright-red text-xs mt-2 flex items-center gap-1"
+        >
+          <AlertCircle className="w-3 h-3" />
+          {errors[name]}
+        </motion.p>
+      )}
+    </AnimatePresence>
+  );
+
+  // Render a schema-driven qualification field
+  const renderField = (field: FormField) => {
+    const label = (
+      <label className="block text-sm font-medium text-text-main mb-2">
+        {q[field.labelKey]}{' '}
+        {field.required && <span className="text-gradient-primary">*</span>}
+        {field.hintKey && <span className="text-text-muted font-normal text-xs">({q[field.hintKey]})</span>}
+      </label>
+    );
+
+    if (field.type === 'select') {
+      return (
+        <div className="relative">
+          {label}
+          <div className="relative">
+            <select
+              name={field.id}
+              value={str(field.id)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={`${inputClass(field.id)} appearance-none bg-white pr-10 cursor-pointer ${str(field.id) ? 'text-text-main' : 'text-silver'}`}
+            >
+              <option value="">{q.selectPlaceholder}</option>
+              {field.options?.map(opt => (
+                <option key={opt.value} value={opt.value} className="text-text-main">{q[opt.key]}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-silver pointer-events-none" />
+          </div>
+          {renderFieldError(field.id)}
+        </div>
+      );
     }
+
+    return (
+      <div className="relative">
+        {label}
+        <input
+          type={field.type === 'date' ? 'date' : 'text'}
+          inputMode={field.type === 'zip' ? 'numeric' : undefined}
+          maxLength={field.type === 'zip' ? 5 : undefined}
+          name={field.id}
+          value={str(field.id)}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={inputClass(field.id)}
+        />
+        {renderFieldError(field.id)}
+      </div>
+    );
   };
 
   if (isSubmitted) {
@@ -217,133 +303,190 @@ export const ContactForm = ({
         <p className="text-text-muted">{formSubtitle}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+        {/* Name row */}
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Name Field */}
-          <div className="relative">
-            <label className="block text-sm font-medium text-text-main mb-2">
-              {t.contactForm.fullName} <span className="text-gradient-primary">*</span>
-            </label>
-            <div className="relative">
-              <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${touched.name && errors.name ? 'text-bright-red' : 'text-silver'
-                }`} />
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="John Doe"
-                className={`w-full pl-12 pr-4 py-4 border rounded-xl outline-none transition-all ${touched.name && errors.name
-                  ? 'border-bright-red focus:border-bright-red focus:ring-2 focus:ring-bright-red/20'
-                  : 'border-silver/50 focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20'
-                  }`}
-              />
-            </div>
-            <AnimatePresence>
-              {touched.name && errors.name && (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="text-bright-red text-xs mt-2 flex items-center gap-1"
-                >
-                  <AlertCircle className="w-3 h-3" />
-                  {errors.name}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Phone Field */}
-          <div className="relative">
-            <label className="block text-sm font-medium text-text-main mb-2">
-              {t.contactForm.phoneNumber} <span className="text-gradient-primary">*</span>
-            </label>
-            <div className="relative">
-              <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${touched.phone && errors.phone ? 'text-bright-red' : 'text-silver'
-                }`} />
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="(555) 123-4567"
-                maxLength={14}
-                className={`w-full pl-12 pr-4 py-4 border rounded-xl outline-none transition-all ${touched.phone && errors.phone
-                  ? 'border-bright-red focus:border-bright-red focus:ring-2 focus:ring-bright-red/20'
-                  : 'border-silver/50 focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20'
-                  }`}
-              />
-            </div>
-            <AnimatePresence>
-              {touched.phone && errors.phone && (
-                <motion.p
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="text-bright-red text-xs mt-2 flex items-center gap-1"
-                >
-                  <AlertCircle className="w-3 h-3" />
-                  {errors.phone}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
+          {config.splitName ? (
+            <>
+              {/* First Name */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-text-main mb-2">
+                  {q.firstName} <span className="text-gradient-primary">*</span>
+                </label>
+                <div className="relative">
+                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.firstName && errors.firstName ? 'text-bright-red' : 'text-silver'}`} />
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={str('firstName')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`${inputClass('firstName')} pl-12`}
+                  />
+                </div>
+                {renderFieldError('firstName')}
+              </div>
+              {/* Last Name */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-text-main mb-2">
+                  {q.lastName} <span className="text-gradient-primary">*</span>
+                </label>
+                <div className="relative">
+                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.lastName && errors.lastName ? 'text-bright-red' : 'text-silver'}`} />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={str('lastName')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`${inputClass('lastName')} pl-12`}
+                  />
+                </div>
+                {renderFieldError('lastName')}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Full Name */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-text-main mb-2">
+                  {t.contactForm.fullName} <span className="text-gradient-primary">*</span>
+                </label>
+                <div className="relative">
+                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.name && errors.name ? 'text-bright-red' : 'text-silver'}`} />
+                  <input
+                    type="text"
+                    name="name"
+                    value={str('name')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="John Doe"
+                    className={`${inputClass('name')} pl-12`}
+                  />
+                </div>
+                {renderFieldError('name')}
+              </div>
+              {/* Phone */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-text-main mb-2">
+                  {t.contactForm.phoneNumber} <span className="text-gradient-primary">*</span>
+                </label>
+                <div className="relative">
+                  <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.phone && errors.phone ? 'text-bright-red' : 'text-silver'}`} />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={str('phone')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="(555) 123-4567"
+                    maxLength={14}
+                    className={`${inputClass('phone')} pl-12`}
+                  />
+                </div>
+                {renderFieldError('phone')}
+              </div>
+            </>
+          )}
         </div>
 
-        {/* Email Field */}
-        <div className="relative">
-          <label className="block text-sm font-medium text-text-main mb-2">
-            {t.contactForm.emailAddress} <span className="text-gradient-primary">*</span>
-          </label>
-          <div className="relative">
-            <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors ${touched.email && errors.email ? 'text-bright-red' : 'text-silver'
-              }`} />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="john@example.com"
-              className={`w-full pl-12 pr-4 py-4 border rounded-xl outline-none transition-all ${touched.email && errors.email
-                ? 'border-bright-red focus:border-bright-red focus:ring-2 focus:ring-bright-red/20'
-                : 'border-silver/50 focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20'
-                }`}
-            />
+        {/* When name is split, phone + email get their own row */}
+        {config.splitName ? (
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="relative">
+              <label className="block text-sm font-medium text-text-main mb-2">
+                {t.contactForm.phoneNumber} <span className="text-gradient-primary">*</span>
+              </label>
+              <div className="relative">
+                <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.phone && errors.phone ? 'text-bright-red' : 'text-silver'}`} />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={str('phone')}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="(555) 123-4567"
+                  maxLength={14}
+                  className={`${inputClass('phone')} pl-12`}
+                />
+              </div>
+              {renderFieldError('phone')}
+            </div>
+            <div className="relative">
+              <label className="block text-sm font-medium text-text-main mb-2">
+                {t.contactForm.emailAddress} <span className="text-gradient-primary">*</span>
+              </label>
+              <div className="relative">
+                <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.email && errors.email ? 'text-bright-red' : 'text-silver'}`} />
+                <input
+                  type="email"
+                  name="email"
+                  value={str('email')}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="john@example.com"
+                  className={`${inputClass('email')} pl-12`}
+                />
+              </div>
+              {renderFieldError('email')}
+            </div>
           </div>
-          <AnimatePresence>
-            {touched.email && errors.email && (
-              <motion.p
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                className="text-bright-red text-xs mt-2 flex items-center gap-1"
-              >
-                <AlertCircle className="w-3 h-3" />
-                {errors.email}
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
+        ) : (
+          /* Single-name layout: email full width */
+          <div className="relative">
+            <label className="block text-sm font-medium text-text-main mb-2">
+              {t.contactForm.emailAddress} <span className="text-gradient-primary">*</span>
+            </label>
+            <div className="relative">
+              <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.email && errors.email ? 'text-bright-red' : 'text-silver'}`} />
+              <input
+                type="email"
+                name="email"
+                value={str('email')}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="john@example.com"
+                className={`${inputClass('email')} pl-12`}
+              />
+            </div>
+            {renderFieldError('email')}
+          </div>
+        )}
+
+        {/* Product-specific qualification fields */}
+        {config.fields.length > 0 && (
+          <div className="pt-2">
+            <div className="mb-5">
+              <h4 className="text-lg font-bold text-text-main">{q.sectionTitle}</h4>
+              <p className="text-sm text-text-muted">{q.sectionSubtitle}</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {config.fields.map(field => (
+                <div key={field.id} className={field.half ? '' : 'md:col-span-2'}>
+                  {renderField(field)}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Message Field */}
-        <div className="relative">
-          <label className="block text-sm font-medium text-text-main mb-2">{t.contactForm.message}</label>
+        {showMessage && (
           <div className="relative">
-            <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-silver" />
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={4}
-              placeholder={t.contactForm.messagePlaceholder}
-              className="w-full pl-12 pr-4 py-4 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all resize-none"
-            />
+            <label className="block text-sm font-medium text-text-main mb-2">{t.contactForm.message}</label>
+            <div className="relative">
+              <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-silver" />
+              <textarea
+                name="message"
+                value={str('message')}
+                onChange={handleChange}
+                rows={4}
+                placeholder={t.contactForm.messagePlaceholder}
+                className="w-full pl-12 pr-4 py-4 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all resize-none"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Consent Checkbox */}
         <div className="relative bg-gray-50 rounded-xl p-4 border border-gray-100">
@@ -351,14 +494,12 @@ export const ContactForm = ({
             <input
               type="checkbox"
               name="consent"
-              id="consent-checkbox"
-              checked={formData.consent}
+              id={`consent-checkbox-${productType}`}
+              checked={Boolean(formData.consent)}
               onChange={handleChange}
-              className={`mt-1 w-5 h-5 rounded border-2 text-deep-blue focus:ring-deep-blue/20 cursor-pointer flex-shrink-0 ${
-                touched.consent && errors.consent ? 'border-bright-red' : 'border-gray-300'
-              }`}
+              className={`mt-1 w-5 h-5 rounded border-2 text-deep-blue focus:ring-deep-blue/20 cursor-pointer flex-shrink-0 ${touched.consent && errors.consent ? 'border-bright-red' : 'border-gray-300'}`}
             />
-            <label htmlFor="consent-checkbox" className="text-sm text-text-muted leading-relaxed cursor-pointer">
+            <label htmlFor={`consent-checkbox-${productType}`} className="text-sm text-text-muted leading-relaxed cursor-pointer">
               <span className="font-semibold text-text-main">{t.contactForm.iAgreeToBeContacted}</span> {t.contactForm.consentText}
               <ul className="mt-2 space-y-1 list-disc list-inside text-xs">
                 <li>{t.contactForm.consentItem1}</li>
@@ -368,20 +509,16 @@ export const ContactForm = ({
               </ul>
             </label>
           </div>
-          <AnimatePresence>
-            {touched.consent && errors.consent && (
-              <motion.p
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                className="text-bright-red text-xs mt-2 flex items-center gap-1"
-              >
-                <AlertCircle className="w-3 h-3" />
-                {errors.consent}
-              </motion.p>
-            )}
-          </AnimatePresence>
+          {renderFieldError('consent')}
         </div>
+
+        {/* Medicare-specific compliance notice */}
+        {isMedicare && (
+          <div className="flex items-start gap-2 text-xs text-text-muted bg-deep-blue/5 rounded-xl p-3 border border-deep-blue/10">
+            <Info className="w-4 h-4 text-deep-blue flex-shrink-0 mt-0.5" />
+            <span className="font-medium">{t.contactForm.requestInfoOnly}</span>
+          </div>
+        )}
 
         {/* Submit Button */}
         <motion.button
@@ -428,6 +565,12 @@ export const ContactForm = ({
           <p className="text-xs text-text-muted text-center mt-3">
             {t.contactForm.a2pVerifiedText}
           </p>
+          {/* Medicare benefits disclaimer */}
+          {isMedicare && (
+            <p className="text-xs text-text-muted text-center mt-2 italic">
+              {t.contactForm.benefitsDisclaimer}
+            </p>
+          )}
         </div>
       </form>
     </motion.div>

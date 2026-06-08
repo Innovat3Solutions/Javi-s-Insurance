@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
 import { Navbar, Footer } from '../components/Layout';
 import { TrustBadges } from '../components/TrustBadges';
 import { Briefcase, Users, TrendingUp, Award, CheckCircle, Phone, Mail, User, FileText, Loader2 } from 'lucide-react';
@@ -126,7 +126,7 @@ export const BecomeAgentPage = () => {
                 Apply Now
               </a>
               <a
-                href="tel:310-437-2766"
+                href="tel:305-390-8679"
                 className="btn-outline flex items-center justify-center gap-2"
               >
                 <PhoneIcon size={20} className="text-current" />

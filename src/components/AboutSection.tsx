@@ -161,7 +161,7 @@ export const TeamSection = () => {
           className="text-center mt-12"
         >
           <a
-            href="tel:310-437-2766"
+            href="tel:305-390-8679"
             className="btn-primary inline-flex items-center gap-2"
           >
             <PhoneIcon size={20} className="text-white" />
