@@ -98,7 +98,7 @@ export const Navbar = () => {
           {/* Logo - Centered on mobile, Left on desktop */}
           <div className="flex flex-1 justify-center lg:justify-start z-50">
             <Link to="/" className="flex items-center py-1">
-              <Logo className={`transition-all duration-300 object-contain w-auto ${isScrolled ? 'h-12 md:h-14 lg:h-16' : 'h-16 md:h-20 lg:h-24'}`} />
+              <Logo className={`transition-all duration-300 object-contain w-auto ${isScrolled ? 'h-14 md:h-16 lg:h-20' : 'h-20 md:h-24 lg:h-28'}`} />
             </Link>
           </div>
 
