@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Facebook, Twitter, Instagram, Mail, Menu, X, Shield, Lock, Award, Phone, ChevronDown, Heart, Home, Car, Building2, Globe, Smile } from 'lucide-react';
 import { ShieldLogo, PhoneIcon, EmailIcon, FamilyIcon, ShieldPlus } from './BrandIcons';
 import { useLanguage } from '../i18n';
+import { WhatsAppGlyph, whatsAppLink, WHATSAPP_DISPLAY } from './WhatsAppButton';
 
 export { ShieldLogo };
 
@@ -502,7 +503,7 @@ const FooterTrustBadges = () => (
 );
 
 export const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <footer className="bg-cream pt-20 pb-10 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6">
@@ -600,6 +601,10 @@ export const Footer = () => {
               <a href="mailto:info@javisservices.com" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
                 <EmailIcon size={18} className="text-bright-red" />
                 <span>{t.common.email}</span>
+              </a>
+              <a href={whatsAppLink(language)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-gradient-secondary transition-colors">
+                <WhatsAppGlyph className="w-[18px] h-[18px] text-[#25D366]" />
+                <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
               </a>
             </div>
           </div>

@@ -20,6 +20,7 @@ import { MedicaidPage } from './pages/Medicaid';
 import { BecomeAgentPage } from './pages/BecomeAgent';
 import { DentalVisionPage } from './pages/DentalVision';
 import { GetCoveredPage } from './pages/GetCovered';
+import { WhatsAppFloat } from './components/WhatsAppButton';
 import { LanguageProvider, useLanguage } from './i18n';
 
 // Animations
@@ -757,6 +758,7 @@ export default function App() {
           <Route path="/get-covered" element={<GetCoveredPage />} />
           <Route path="/become-agent" element={<BecomeAgentPage />} />
         </Routes>
+        <WhatsAppFloat />
       </BrowserRouter>
     </LanguageProvider>
   );
