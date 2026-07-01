@@ -20,6 +20,8 @@ import { MedicaidPage } from './pages/Medicaid';
 import { BecomeAgentPage } from './pages/BecomeAgent';
 import { DentalVisionPage } from './pages/DentalVision';
 import { GetCoveredPage } from './pages/GetCovered';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicy';
+import { TermsOfServicePage } from './pages/TermsOfService';
 import { WhatsAppFloat } from './components/WhatsAppButton';
 import { LanguageProvider, useLanguage } from './i18n';
 
@@ -756,6 +758,8 @@ export default function App() {
           <Route path="/medicaid" element={<MedicaidPage />} />
           <Route path="/dental-vision" element={<DentalVisionPage />} />
           <Route path="/get-covered" element={<GetCoveredPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/become-agent" element={<BecomeAgentPage />} />
         </Routes>
         <WhatsAppFloat />

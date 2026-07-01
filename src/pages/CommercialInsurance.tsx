@@ -64,14 +64,13 @@ const copy = {
         successMessage: "Thank you for your interest. A commercial insurance specialist will contact you shortly to discuss your business needs.",
         contactInformation: "Contact Information",
         contactName: "Contact Name",
-        phoneNumber: "Phone Number",
         emailAddress: "Email Address",
         businessInformation: "Business Information",
         businessName: "Business Name",
         businessAddress: "Business Address",
         typeOfBusiness: "Type of Business",
         businessTypePlaceholder: "e.g., Restaurant, Contractor, Retail",
-        consent: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my business. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.",
+        consent: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my business. I agree to be contacted via email regarding my insurance request.",
         sslEncrypted: "256 bit SSL Encrypted",
         dataSecure: "Your data is secure",
         submitting: "Submitting...",
@@ -124,14 +123,13 @@ const copy = {
         successMessage: "Gracias por su interés. Un especialista en seguros comerciales se comunicará con usted en breve para hablar sobre las necesidades de su negocio.",
         contactInformation: "Información de Contacto",
         contactName: "Nombre de Contacto",
-        phoneNumber: "Número de Teléfono",
         emailAddress: "Correo Electrónico",
         businessInformation: "Información del Negocio",
         businessName: "Nombre del Negocio",
         businessAddress: "Dirección del Negocio",
         typeOfBusiness: "Tipo de Negocio",
         businessTypePlaceholder: "ej., Restaurante, Contratista, Comercio Minorista",
-        consent: "Doy mi consentimiento para que Javi's Insurance Services utilice esta información para preparar una cotización o estimación para mi negocio. Acepto ser contactado por llamada, mensaje de texto o correo electrónico con respecto a mi solicitud de seguro. Pueden aplicarse tarifas de mensajes y datos.",
+        consent: "Doy mi consentimiento para que Javi's Insurance Services utilice esta información para preparar una cotización o estimación para mi negocio. Acepto ser contactado por correo electrónico con respecto a mi solicitud de seguro.",
         sslEncrypted: "Encriptación SSL de 256 bits",
         dataSecure: "Sus datos están seguros",
         submitting: "Enviando...",
@@ -145,7 +143,6 @@ export const CommercialInsurancePage = () => {
     const coverageTypes = c.coverageTypes.map((type, i) => ({ ...type, icon: coverageTypeIcons[i] }));
     const [formData, setFormData] = useState({
         contactName: '',
-        phone: '',
         email: '',
         businessName: '',
         businessAddress: '',
@@ -157,19 +154,6 @@ export const CommercialInsurancePage = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-
-    const formatPhone = (value: string) => {
-        const numbers = value.replace(/\D/g, '');
-        if (numbers.length <= 3) return numbers;
-        if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
-        return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
-    };
-
-    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formatted = formatPhone(e.target.value);
-        setFormData(prev => ({ ...prev, phone: formatted }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -424,36 +408,19 @@ export const CommercialInsurancePage = () => {
                                         placeholder="John Doe"
                                     />
                                 </div>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">
-                                            {c.phoneNumber} <span className="text-gradient-primary">*</span>
-                                        </label>
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handlePhoneChange}
-                                            required
-                                            maxLength={14}
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="(555) 123-4567"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-text-main mb-2">
-                                            {c.emailAddress} <span className="text-gradient-primary">*</span>
-                                        </label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                            placeholder="john@company.com"
-                                        />
-                                    </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-text-main mb-2">
+                                        {c.emailAddress} <span className="text-gradient-primary">*</span>
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
+                                        placeholder="john@company.com"
+                                    />
                                 </div>
                             </div>
 

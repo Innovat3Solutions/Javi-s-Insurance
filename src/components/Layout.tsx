@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Facebook, Twitter, Instagram, Mail, Menu, X, Shield, Lock, Award, Phone, ChevronDown, Heart, Home, Car, Building2, Globe, Smile } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Menu, X, Shield, Lock, Award, Phone, ChevronDown, Heart, Home, Car, Building2, Globe, Smile, MapPin } from 'lucide-react';
 import { ShieldLogo, PhoneIcon, EmailIcon, FamilyIcon, ShieldPlus } from './BrandIcons';
 import { useLanguage } from '../i18n';
 import { WhatsAppGlyph, whatsAppLink, WHATSAPP_DISPLAY } from './WhatsAppButton';
@@ -606,6 +606,10 @@ export const Footer = () => {
                 <WhatsAppGlyph className="w-[18px] h-[18px] text-[#25D366]" />
                 <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
               </a>
+              <a href="https://maps.google.com/?q=12518+SW+88th+Street+Miami+FL+33186" target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-gradient-secondary transition-colors">
+                <MapPin size={18} className="text-bright-red flex-shrink-0 mt-0.5" />
+                <span>12518 SW 88th Street, Miami, FL 33186</span>
+              </a>
             </div>
           </div>
 
@@ -635,9 +639,9 @@ export const Footer = () => {
             <div>
               <h4 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.legal}</h4>
               <ul className="space-y-4 text-sm text-text-muted font-medium">
-                <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.privacyPolicy}</Link></li>
-                <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.termsOfUse}</Link></li>
-                <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.licenses}</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-deep-blue transition-colors">{t.footer.privacyPolicy}</Link></li>
+                <li><Link to="/terms" className="hover:text-deep-blue transition-colors">{t.footer.termsOfUse}</Link></li>
+                <li><Link to="/terms" className="hover:text-deep-blue transition-colors">{t.footer.licenses}</Link></li>
               </ul>
             </div>
           </div>

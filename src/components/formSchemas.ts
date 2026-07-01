@@ -45,19 +45,6 @@ export interface ProductFormConfig {
   compliance?: 'standard' | 'medicare';
 }
 
-const preferredContact: FormField = {
-  id: 'preferredContact',
-  type: 'select',
-  labelKey: 'preferredContact',
-  half: true,
-  options: [
-    { value: 'phone', key: 'pc_phone' },
-    { value: 'email', key: 'pc_email' },
-    { value: 'text', key: 'pc_text' },
-    { value: 'any', key: 'pc_any' },
-  ],
-};
-
 export const productForms: Record<ProductType, ProductFormConfig> = {
   // ----- Obamacare / ACA (Under 65) -----
   obamacare: {
@@ -65,7 +52,6 @@ export const productForms: Record<ProductType, ProductFormConfig> = {
     compliance: 'standard',
     fields: [
       { id: 'zipCode', type: 'zip', labelKey: 'zip', required: true, half: true },
-      preferredContact,
       {
         id: 'peopleCount',
         type: 'select',
@@ -126,7 +112,6 @@ export const productForms: Record<ProductType, ProductFormConfig> = {
     fields: [
       { id: 'zipCode', type: 'zip', labelKey: 'zip', required: true, half: true },
       { id: 'dateOfBirth', type: 'date', labelKey: 'dob', hintKey: 'dobHint', half: true },
-      preferredContact,
       {
         id: 'newToMedicare',
         type: 'select',
@@ -183,7 +168,6 @@ export const productForms: Record<ProductType, ProductFormConfig> = {
     compliance: 'standard',
     fields: [
       { id: 'county', type: 'text', labelKey: 'county', required: true, half: true },
-      preferredContact,
       {
         id: 'applyingFor',
         type: 'select',
@@ -216,7 +200,6 @@ export const productForms: Record<ProductType, ProductFormConfig> = {
     compliance: 'standard',
     fields: [
       { id: 'zipCode', type: 'zip', labelKey: 'zip', required: true, half: true },
-      preferredContact,
       {
         id: 'planType',
         type: 'select',

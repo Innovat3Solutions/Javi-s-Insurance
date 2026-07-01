@@ -33,7 +33,6 @@ export const BecomeAgentPage = () => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
     email: '',
     licenses: '',
   });
@@ -52,12 +51,6 @@ export const BecomeAgentPage = () => {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number';
     }
 
     setErrors(newErrors);
@@ -415,27 +408,6 @@ export const BecomeAgentPage = () => {
                         />
                       </div>
                       {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                    </div>
-
-                    {/* Phone Field */}
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number *
-                      </label>
-                      <div className="relative">
-                        <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          placeholder="(555) 555-5555"
-                          className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-deep-blue/20 focus:border-deep-blue outline-none transition-all ${errors.phone ? 'border-red-500' : 'border-gray-200'
-                            }`}
-                        />
-                      </div>
-                      {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
 
                     {/* Email Field */}

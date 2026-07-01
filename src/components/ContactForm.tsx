@@ -13,22 +13,9 @@ interface ContactFormProps {
 type FormValues = Record<string, string | boolean>;
 type FormErrors = Record<string, string | undefined>;
 
-// Phone number formatting helper
-const formatPhoneNumber = (value: string): string => {
-  const numbers = value.replace(/\D/g, '');
-  if (numbers.length <= 3) return numbers;
-  if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
-  return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
-};
-
 // Email validation
 const isValidEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
-
-// Phone validation (US format)
-const isValidPhone = (phone: string): boolean => {
-  return phone.replace(/\D/g, '').length === 10;
 };
 
 // ZIP validation (5 digits)
@@ -54,7 +41,6 @@ export const ContactForm = ({
       ? { firstName: '', lastName: '' }
       : { name: '' };
     base.email = '';
-    base.phone = '';
     base.message = '';
     config.fields.forEach(f => { base[f.id] = ''; });
     base.consent = false;
@@ -86,10 +72,6 @@ export const ContactForm = ({
         if (!value.trim()) return t.contactForm.emailRequired;
         if (!isValidEmail(value)) return t.contactForm.validEmail;
         return;
-      case 'phone':
-        if (!value.trim()) return t.contactForm.phoneRequired;
-        if (!isValidPhone(value)) return t.contactForm.validPhone;
-        return;
     }
     // Schema-driven fields
     const field = config.fields.find(f => f.id === name);
@@ -103,7 +85,7 @@ export const ContactForm = ({
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
     const nameFields = config.splitName ? ['firstName', 'lastName'] : ['name'];
-    [...nameFields, 'email', 'phone'].forEach(name => {
+    [...nameFields, 'email'].forEach(name => {
       newErrors[name] = validateField(name, str(name));
     });
     config.fields.forEach(f => {
@@ -119,7 +101,7 @@ export const ContactForm = ({
 
     const allKeys = [
       ...(config.splitName ? ['firstName', 'lastName'] : ['name']),
-      'email', 'phone', 'consent',
+      'email', 'consent',
       ...config.fields.map(f => f.id),
     ];
     setTouched(allKeys.reduce((acc, k) => ({ ...acc, [k]: true }), {}));
@@ -146,7 +128,7 @@ export const ContactForm = ({
       setValue(name, (e.target as HTMLInputElement).checked);
       return;
     }
-    setValue(name, name === 'phone' ? formatPhoneNumber(value) : value);
+    setValue(name, value);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -304,10 +286,10 @@ export const ContactForm = ({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-        {/* Name row */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {config.splitName ? (
-            <>
+        {/* Name + Email (phone intentionally not collected — A2P compliance with on-page chat widget) */}
+        {config.splitName ? (
+          <>
+            <div className="grid md:grid-cols-2 gap-6">
               {/* First Name */}
               <div className="relative">
                 <label className="block text-sm font-medium text-text-main mb-2">
@@ -344,73 +326,47 @@ export const ContactForm = ({
                 </div>
                 {renderFieldError('lastName')}
               </div>
-            </>
-          ) : (
-            <>
-              {/* Full Name */}
+            </div>
+            {/* Email full width */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-text-main mb-2">
+                {t.contactForm.emailAddress} <span className="text-gradient-primary">*</span>
+              </label>
               <div className="relative">
-                <label className="block text-sm font-medium text-text-main mb-2">
-                  {t.contactForm.fullName} <span className="text-gradient-primary">*</span>
-                </label>
-                <div className="relative">
-                  <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.name && errors.name ? 'text-bright-red' : 'text-silver'}`} />
-                  <input
-                    type="text"
-                    name="name"
-                    value={str('name')}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    placeholder="John Doe"
-                    className={`${inputClass('name')} pl-12`}
-                  />
-                </div>
-                {renderFieldError('name')}
+                <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.email && errors.email ? 'text-bright-red' : 'text-silver'}`} />
+                <input
+                  type="email"
+                  name="email"
+                  value={str('email')}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="john@example.com"
+                  className={`${inputClass('email')} pl-12`}
+                />
               </div>
-              {/* Phone */}
-              <div className="relative">
-                <label className="block text-sm font-medium text-text-main mb-2">
-                  {t.contactForm.phoneNumber} <span className="text-gradient-primary">*</span>
-                </label>
-                <div className="relative">
-                  <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.phone && errors.phone ? 'text-bright-red' : 'text-silver'}`} />
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={str('phone')}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    placeholder="(555) 123-4567"
-                    maxLength={14}
-                    className={`${inputClass('phone')} pl-12`}
-                  />
-                </div>
-                {renderFieldError('phone')}
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* When name is split, phone + email get their own row */}
-        {config.splitName ? (
+              {renderFieldError('email')}
+            </div>
+          </>
+        ) : (
+          /* Single-name layout: name + email side by side */
           <div className="grid md:grid-cols-2 gap-6">
             <div className="relative">
               <label className="block text-sm font-medium text-text-main mb-2">
-                {t.contactForm.phoneNumber} <span className="text-gradient-primary">*</span>
+                {t.contactForm.fullName} <span className="text-gradient-primary">*</span>
               </label>
               <div className="relative">
-                <Phone className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.phone && errors.phone ? 'text-bright-red' : 'text-silver'}`} />
+                <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.name && errors.name ? 'text-bright-red' : 'text-silver'}`} />
                 <input
-                  type="tel"
-                  name="phone"
-                  value={str('phone')}
+                  type="text"
+                  name="name"
+                  value={str('name')}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="(555) 123-4567"
-                  maxLength={14}
-                  className={`${inputClass('phone')} pl-12`}
+                  placeholder="John Doe"
+                  className={`${inputClass('name')} pl-12`}
                 />
               </div>
-              {renderFieldError('phone')}
+              {renderFieldError('name')}
             </div>
             <div className="relative">
               <label className="block text-sm font-medium text-text-main mb-2">
@@ -430,26 +386,6 @@ export const ContactForm = ({
               </div>
               {renderFieldError('email')}
             </div>
-          </div>
-        ) : (
-          /* Single-name layout: email full width */
-          <div className="relative">
-            <label className="block text-sm font-medium text-text-main mb-2">
-              {t.contactForm.emailAddress} <span className="text-gradient-primary">*</span>
-            </label>
-            <div className="relative">
-              <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${touched.email && errors.email ? 'text-bright-red' : 'text-silver'}`} />
-              <input
-                type="email"
-                name="email"
-                value={str('email')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="john@example.com"
-                className={`${inputClass('email')} pl-12`}
-              />
-            </div>
-            {renderFieldError('email')}
           </div>
         )}
 
@@ -555,11 +491,6 @@ export const ContactForm = ({
             <div className="flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-deep-blue" />
               <span>{t.trust.hipaaCompliant}</span>
-            </div>
-            <div className="hidden sm:block w-1 h-1 bg-silver rounded-full" />
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="w-3.5 h-3.5 text-deep-blue" />
-              <span>{t.trust.a2pVerified}</span>
             </div>
           </div>
           <p className="text-xs text-text-muted text-center mt-3">

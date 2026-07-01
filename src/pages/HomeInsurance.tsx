@@ -42,7 +42,6 @@ const copy = {
         personalInformation: "Personal Information",
         firstName: "First Name",
         lastName: "Last Name",
-        phoneNumber: "Phone Number",
         emailAddress: "Email Address",
         propertyInformation: "Property Information",
         propertyAddress: "Property Address",
@@ -69,7 +68,7 @@ const copy = {
         policyExpiration: "Current Policy Expiration Date",
         additionalNotes: "Additional Notes",
         notesPlaceholder: "Any additional information about your property or coverage needs...",
-        consentText: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my home insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.",
+        consentText: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my home insurance. I agree to be contacted via email regarding my insurance request.",
         sslEncrypted: "256 bit SSL Encrypted",
         dataSecure: "Your data is secure",
         back: "Back",
@@ -105,7 +104,6 @@ const copy = {
         personalInformation: "Información Personal",
         firstName: "Nombre",
         lastName: "Apellido",
-        phoneNumber: "Número de Teléfono",
         emailAddress: "Correo Electrónico",
         propertyInformation: "Información de la Propiedad",
         propertyAddress: "Dirección de la Propiedad",
@@ -132,7 +130,7 @@ const copy = {
         policyExpiration: "Fecha de Vencimiento de la Póliza Actual",
         additionalNotes: "Notas Adicionales",
         notesPlaceholder: "Cualquier información adicional sobre su propiedad o necesidades de cobertura...",
-        consentText: "Doy mi consentimiento para que Javi's Insurance Services use esta información para preparar una cotización o estimación para mi seguro de hogar. Acepto ser contactado por llamada, mensaje de texto o correo electrónico con respecto a mi solicitud de seguro. Pueden aplicarse tarifas de mensajes y datos.",
+        consentText: "Doy mi consentimiento para que Javi's Insurance Services use esta información para preparar una cotización o estimación para mi seguro de hogar. Acepto ser contactado por correo electrónico con respecto a mi solicitud de seguro.",
         sslEncrypted: "Cifrado SSL de 256 bits",
         dataSecure: "Sus datos están seguros",
         back: "Atrás",
@@ -150,7 +148,6 @@ export const HomeInsurancePage = () => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        phone: '',
         email: '',
         propertyAddress: '',
         city: '',
@@ -172,7 +169,7 @@ export const HomeInsurancePage = () => {
 
     const nextStep = () => {
         // Basic validation before advancing
-        if (activeStep === 1 && (!formData.firstName || !formData.lastName || !formData.phone || !formData.email)) {
+        if (activeStep === 1 && (!formData.firstName || !formData.lastName || !formData.email)) {
             alert(c.validationStep1);
             return;
         }
@@ -190,18 +187,6 @@ export const HomeInsurancePage = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const formatPhone = (value: string) => {
-        const numbers = value.replace(/\D/g, '');
-        if (numbers.length <= 3) return numbers;
-        if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
-        return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
-    };
-
-    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formatted = formatPhone(e.target.value);
-        setFormData(prev => ({ ...prev, phone: formatted }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -419,21 +404,6 @@ export const HomeInsurancePage = () => {
                                                         required
                                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
                                                         placeholder="Doe"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <label className="block text-sm font-medium text-text-main mb-2">
-                                                        {c.phoneNumber} <span className="text-gradient-primary">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="tel"
-                                                        name="phone"
-                                                        value={formData.phone}
-                                                        onChange={handlePhoneChange}
-                                                        required
-                                                        maxLength={14}
-                                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-deep-blue focus:ring-2 focus:ring-deep-blue/20 outline-none transition-all"
-                                                        placeholder="(555) 123-4567"
                                                     />
                                                 </div>
                                                 <div>

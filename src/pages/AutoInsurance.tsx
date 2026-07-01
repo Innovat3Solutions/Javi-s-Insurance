@@ -52,14 +52,8 @@ const copy = {
         personalInfo: "Personal Information",
         firstName: "First Name",
         lastName: "Last Name",
-        phoneNumber: "Phone Number",
         emailAddress: "Email Address",
         zipCode: "Zip Code",
-        preferredContact: "Preferred Contact Method",
-        selectPreference: "Select preference",
-        phoneCall: "Phone Call",
-        textMessage: "Text Message",
-        emailOption: "Email",
         vehicleInfo: "Vehicle Information",
         year: "Year",
         yearPlaceholder: "Year",
@@ -89,7 +83,7 @@ const copy = {
         desiredStartDate: "Desired Start Date",
         additionalNotes: "Additional Notes",
         additionalNotesPlaceholder: "Any additional information about your vehicle or coverage needs...",
-        consent: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my auto insurance. I agree to be contacted via call, text, or email regarding my insurance request. Message and data rates may apply.",
+        consent: "I consent to Javi's Insurance Services using this information to prepare a quote or estimate for my auto insurance. I agree to be contacted via email regarding my insurance request.",
         sslEncrypted: "256 bit SSL Encrypted",
         dataSecure: "Your data is secure",
         submitting: "Submitting...",
@@ -131,14 +125,8 @@ const copy = {
         personalInfo: "Información Personal",
         firstName: "Nombre",
         lastName: "Apellido",
-        phoneNumber: "Número de Teléfono",
         emailAddress: "Correo Electrónico",
         zipCode: "Código Postal",
-        preferredContact: "Método de Contacto Preferido",
-        selectPreference: "Seleccione una preferencia",
-        phoneCall: "Llamada Telefónica",
-        textMessage: "Mensaje de Texto",
-        emailOption: "Correo Electrónico",
         vehicleInfo: "Información del Vehículo",
         year: "Año",
         yearPlaceholder: "Año",
@@ -168,7 +156,7 @@ const copy = {
         desiredStartDate: "Fecha de Inicio Deseada",
         additionalNotes: "Notas Adicionales",
         additionalNotesPlaceholder: "Cualquier información adicional sobre su vehículo o necesidades de cobertura...",
-        consent: "Doy mi consentimiento para que Javi's Insurance Services use esta información para preparar una cotización o estimación de mi seguro de auto. Acepto ser contactado por llamada, mensaje de texto o correo electrónico con respecto a mi solicitud de seguro. Pueden aplicarse tarifas de mensajes y datos.",
+        consent: "Doy mi consentimiento para que Javi's Insurance Services use esta información para preparar una cotización o estimación de mi seguro de auto. Acepto ser contactado por correo electrónico con respecto a mi solicitud de seguro.",
         sslEncrypted: "Encriptación SSL de 256 bits",
         dataSecure: "Sus datos están seguros",
         submitting: "Enviando...",
@@ -182,10 +170,8 @@ export const AutoInsurancePage = () => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        phone: '',
         email: '',
         zipCode: '',
-        preferredContact: '',
         vehicleYear: '',
         vehicleMake: '',
         vehicleModel: '',
@@ -205,18 +191,6 @@ export const AutoInsurancePage = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const formatPhone = (value: string) => {
-        const numbers = value.replace(/\D/g, '');
-        if (numbers.length <= 3) return numbers;
-        if (numbers.length <= 6) return `(${numbers.slice(0, 3)}) ${numbers.slice(3)}`;
-        return `(${numbers.slice(0, 3)}) ${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
-    };
-
-    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formatted = formatPhone(e.target.value);
-        setFormData(prev => ({ ...prev, phone: formatted }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -490,21 +464,6 @@ export const AutoInsurancePage = () => {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-text-main mb-2">
-                                        {c.phoneNumber} <span className="text-gradient-primary">*</span>
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handlePhoneChange}
-                                        required
-                                        maxLength={14}
-                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all"
-                                        placeholder="(555) 123-4567"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">
                                         {c.emailAddress} <span className="text-gradient-primary">*</span>
                                     </label>
                                     <input
@@ -530,22 +489,6 @@ export const AutoInsurancePage = () => {
                                         className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all"
                                         placeholder="90001"
                                     />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-text-main mb-2">
-                                        {c.preferredContact}
-                                    </label>
-                                    <select
-                                        name="preferredContact"
-                                        value={formData.preferredContact}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 border border-silver/50 rounded-xl focus:border-bright-red focus:ring-2 focus:ring-bright-red/20 outline-none transition-all bg-white"
-                                    >
-                                        <option value="">{c.selectPreference}</option>
-                                        <option value="call">{c.phoneCall}</option>
-                                        <option value="text">{c.textMessage}</option>
-                                        <option value="email">{c.emailOption}</option>
-                                    </select>
                                 </div>
                             </div>
 
