@@ -747,15 +747,25 @@ export default function App() {
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://widgets.leadconnectorhq.com/loader.js";
-    script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
-    script.setAttribute('data-widget-id', '6a45668b52b633f861183179');
-    script.setAttribute('data-source', 'WEB_USER');
+    // Assigning properties natively to guarantee execution timing
     script.async = true;
+    script.dataset.resourcesUrl = "https://widgets.leadconnectorhq.com/chat-widget/loader.js";
+    script.dataset.widgetId = "6a45668b52b633f861183179";
+    script.dataset.source = "WEB_USER";
+
     document.body.appendChild(script);
+
+    return () => {
+      // Clean up the script tag if the component unmounts
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
   }, []);
 
   return (
     <LanguageProvider>
+
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
