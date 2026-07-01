@@ -38,13 +38,13 @@ export const WhatsAppFloat = () => {
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.6 }}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
-      className="group fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40"
+      className="group fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40"
     >
       {/* pulse ring */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-60 animate-ping" />
       <WhatsAppGlyph className="relative w-7 h-7" />
       {/* desktop hover tooltip */}
-      <span className="pointer-events-none absolute right-full mr-3 hidden lg:block whitespace-nowrap rounded-lg bg-white px-3 py-2 text-sm font-semibold text-text-main shadow-lg opacity-0 translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
+      <span className="pointer-events-none absolute left-full ml-3 hidden lg:block whitespace-nowrap rounded-lg bg-white px-3 py-2 text-sm font-semibold text-text-main shadow-lg opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
         {label}
       </span>
     </motion.a>
