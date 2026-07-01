@@ -744,6 +744,16 @@ const HomePage = () => (
 
 // --- App with Router ---
 export default function App() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://widgets.leadconnectorhq.com/loader.js";
+    script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+    script.setAttribute('data-widget-id', '6a45668b52b633f861183179');
+    script.setAttribute('data-source', 'WEB_USER');
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <LanguageProvider>
       <BrowserRouter>
