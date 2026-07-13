@@ -6,7 +6,7 @@ type Section = { heading: string; body: string[] };
 const copy = {
   en: {
     title: 'Privacy Policy',
-    lastUpdated: 'June 16, 2026',
+    lastUpdated: 'July 13, 2026',
     intro:
       "Javi's Insurance Services (“we,” “us,” or “our”) respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains what information we collect, how we use and share it, and the choices you have. It applies to our website, our online forms, and the phone, email, and text communications you have with our licensed agents. By using our website or contacting us, you agree to the practices described in this policy.",
     sections: [
@@ -35,7 +35,8 @@ const copy = {
       {
         heading: 'Mobile Information & Third-Party Sharing',
         body: [
-          'No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Information sharing to subcontractors in support services, such as customer service, is permitted. All other use case categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
+          'No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
+          'Information sharing to subcontractors in support services, such as customer service, is permitted.',
         ],
       },
       {
@@ -90,7 +91,7 @@ const copy = {
   },
   es: {
     title: 'Política de Privacidad',
-    lastUpdated: '16 de junio de 2026',
+    lastUpdated: '13 de julio de 2026',
     intro:
       "Javi's Insurance Services (“nosotros” o “nuestro”) respeta su privacidad y se compromete a proteger la información personal que usted comparte con nosotros. Esta Política de Privacidad explica qué información recopilamos, cómo la usamos y compartimos, y las opciones que usted tiene. Se aplica a nuestro sitio web, a nuestros formularios en línea y a las comunicaciones por teléfono, correo electrónico y mensajes de texto que usted mantenga con nuestros agentes licenciados. Al utilizar nuestro sitio web o comunicarse con nosotros, usted acepta las prácticas descritas en esta política.",
     sections: [
@@ -119,7 +120,8 @@ const copy = {
       {
         heading: 'Información Móvil y Divulgación a Terceros',
         body: [
-          'Ninguna información móvil será compartida con terceros ni afiliados con fines de marketing o promocionales. Se permite compartir información con subcontratistas que brindan servicios de soporte, tales como el servicio al cliente. Todas las demás categorías de casos de uso excluyen los datos de aceptación (opt-in) y el consentimiento del originador de mensajes de texto; esta información no será compartida con ningún tercero.',
+          'Ninguna información móvil será compartida con terceros/afiliados con fines de marketing/promocionales. Todas las demás categorías excluyen los datos de aceptación (opt-in) y el consentimiento del originador de mensajes de texto; esta información no será compartida con ningún tercero.',
+          'Se permite compartir información con subcontratistas que brindan servicios de soporte, tales como el servicio al cliente.',
         ],
       },
       {

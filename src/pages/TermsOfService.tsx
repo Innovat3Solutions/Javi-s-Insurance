@@ -4,7 +4,7 @@ import { useLanguage } from '../i18n';
 const copy = {
   en: {
     title: 'Terms of Service',
-    lastUpdated: 'June 16, 2026',
+    lastUpdated: 'July 13, 2026',
     intro:
       "These Terms of Service (the \"Terms\") govern your access to and use of the website and services offered by Javi's Insurance Services (\"we,\" \"us,\" or \"our\"). Please read these Terms carefully before using our website. By using this site, you acknowledge that you have read, understood, and agree to be bound by the Terms set out below.",
     sections: [
@@ -35,7 +35,7 @@ const copy = {
         body: [
           'By submitting a form on our website and opting in, you consent to be contacted by Javi\'s Insurance Services by phone, email, and SMS/text message regarding your inquiry, quote request, or existing coverage. This may include calls or messages placed using automated technology.',
           'Message frequency varies. Message and data rates may apply. You can reply STOP at any time to opt out of text messages, or reply HELP for assistance. Your consent to receive marketing or informational messages is not a condition of purchasing any product or service.',
-          'We will not share your mobile opt-in information or consent with third parties for their own marketing purposes.',
+          'No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.',
         ],
       },
       {
@@ -102,7 +102,7 @@ const copy = {
   },
   es: {
     title: 'Términos de Servicio',
-    lastUpdated: '16 de junio de 2026',
+    lastUpdated: '13 de julio de 2026',
     intro:
       'Estos Términos de Servicio (los "Términos") rigen su acceso y uso del sitio web y los servicios ofrecidos por Javi\'s Insurance Services ("nosotros" o "nuestro"). Lea atentamente estos Términos antes de utilizar nuestro sitio web. Al utilizar este sitio, usted reconoce que ha leído, comprendido y acepta quedar obligado por los Términos que se establecen a continuación.',
     sections: [
@@ -133,7 +133,7 @@ const copy = {
         body: [
           'Al enviar un formulario en nuestro sitio web y dar su consentimiento, usted acepta ser contactado por Javi\'s Insurance Services por teléfono, correo electrónico y mensajes SMS/texto en relación con su consulta, solicitud de cotización o cobertura existente. Esto puede incluir llamadas o mensajes realizados mediante tecnología automatizada.',
           'La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Puede responder STOP en cualquier momento para dejar de recibir mensajes de texto, o responder HELP para obtener ayuda. Su consentimiento para recibir mensajes de marketing o informativos no es una condición para comprar ningún producto o servicio.',
-          'No compartiremos su información de suscripción móvil ni su consentimiento con terceros para sus propios fines de marketing.',
+          'Ninguna información móvil será compartida con terceros/afiliados con fines de marketing/promocionales. Todas las demás categorías excluyen los datos de aceptación (opt-in) y el consentimiento del originador de mensajes de texto; esta información no será compartida con ningún tercero.',
         ],
       },
       {
