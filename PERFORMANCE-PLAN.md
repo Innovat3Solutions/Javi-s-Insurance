@@ -2,7 +2,27 @@
 
 Source: Google PageSpeed / Lighthouse (mobile), run July 15, 2026.
 
-**Current mobile scores:** Performance **60** · Accessibility **79** · Best Practices **100** · SEO **75**
+## ✅ RESULTS — all steps executed July 15, 2026
+
+| | Before | After |
+|---|---|---|
+| Performance (mobile) | 60 | **68** apex / **79** www |
+| Accessibility | 79 | **100** |
+| Best Practices | 100 | **100** |
+| SEO | 75 | **100** |
+| Largest Contentful Paint | 21.7 s | **5.0 s** (3.7 s on www) |
+| Total page weight | 26 MB | **515 KB** |
+
+**Remaining recommendation (not a code change):** the `javisservices.com` →
+`www.javisservices.com` redirect costs ~840 ms and ~11 performance points on
+mobile tests of the apex URL. Options: (a) point all ads/links/GBP at
+`https://www.javisservices.com` directly, and/or (b) in Vercel → Project →
+Settings → Domains, consider making the apex the primary domain. Further JS
+trimming (LazyMotion) could add a few more points but has diminishing returns.
+
+---
+
+**Original mobile scores:** Performance **60** · Accessibility **79** · Best Practices **100** · SEO **75**
 
 | Metric | Current | Target |
 |---|---|---|
