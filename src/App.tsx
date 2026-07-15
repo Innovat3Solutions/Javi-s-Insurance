@@ -520,10 +520,11 @@ const ProductsSection = () => {
                     </div>
                     <Link
                       to={products[activeProduct].link}
-                      aria-label={`${t.productsSection.learnMore}: ${products[activeProduct].title}`}
                       className="w-full sm:w-1/2 bg-[#F8F9FA] text-[#2B353F] border border-gray-200 py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-white hover:border-deep-blue hover:text-deep-blue hover:shadow-md transition-all text-base"
                     >
-                      {t.productsSection.learnMore} <ArrowRight size={18} />
+                      {t.productsSection.learnMore}
+                      <span className="sr-only"> — {products[activeProduct].title}</span>
+                      <ArrowRight size={18} />
                     </Link>
                   </div>
                 </div>
