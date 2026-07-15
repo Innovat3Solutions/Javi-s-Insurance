@@ -104,7 +104,7 @@ export const TestimonialCard = ({ testimonial, featured = false }: { testimonial
 
               <div className="flex flex-wrap items-center gap-4">
                 <div>
-                  <h4 className="font-bold text-text-main">{testimonial.name}</h4>
+                  <p className="font-bold text-text-main">{testimonial.name}</p>
                   <p className="text-sm text-text-muted">{testimonial.role} • {testimonial.location}</p>
                 </div>
 

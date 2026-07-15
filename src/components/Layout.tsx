@@ -12,6 +12,8 @@ export { ShieldLogo };
 export const Logo = ({ className = "h-12" }: { className?: string }) => (
   <img
     src="/images/logo.webp"
+    width={400}
+    height={267}
     alt="Javi's Insurance Services"
     className={`${className} w-auto object-contain mix-blend-multiply`}
   />
