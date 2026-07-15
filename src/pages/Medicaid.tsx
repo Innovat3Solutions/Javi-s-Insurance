@@ -398,7 +398,9 @@ export const MedicaidPage = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/10 to-transparent rounded-[2rem] lg:rounded-[3rem] transform -rotate-2" />
             <img
-              src="/images/medicaid-hero.png"
+              src="/images/medicaid-hero.webp"
+              fetchPriority="high"
+              decoding="async"
               alt={c.heroImageAlt}
               className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
             />
@@ -523,7 +525,9 @@ export const MedicaidPage = () => {
               viewport={{ once: true }}
             >
               <img
-                src="/images/family-living-room.png"
+                src="/images/family-living-room.webp"
+                loading="lazy"
+                decoding="async"
                 alt={c.benefitsImageAlt}
                 className="rounded-3xl shadow-xl w-full h-[400px] object-cover"
               />

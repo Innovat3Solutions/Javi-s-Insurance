@@ -68,7 +68,9 @@ export const ProcessTimeline = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-deep-blue/20 to-transparent rounded-[2rem] transform -rotate-1" />
             <img
-              src="/images/agent-meeting-seniors.png"
+              src="/images/agent-meeting-seniors.webp"
+              loading="lazy"
+              decoding="async"
               alt="Insurance agent helping clients"
               className="relative rounded-[2rem] shadow-premium w-full h-[500px] object-cover"
             />

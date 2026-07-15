@@ -545,7 +545,9 @@ export const MedicarePage = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/10 to-transparent rounded-[2rem] lg:rounded-[3rem] transform -rotate-2" />
             <img
-              src="/images/medicare-hero.png"
+              src="/images/medicare-hero.webp"
+              fetchPriority="high"
+              decoding="async"
               alt={c.heroImgAlt}
               className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
             />
@@ -808,7 +810,9 @@ export const MedicarePage = () => {
               viewport={{ once: true }}
             >
               <img
-                src="/images/senior-couple-walking.png"
+                src="/images/senior-couple-walking.webp"
+                loading="lazy"
+                decoding="async"
                 alt={c.benefitsImgAlt}
                 className="rounded-3xl shadow-premium w-full h-[450px] object-cover"
               />
@@ -865,7 +869,9 @@ export const MedicarePage = () => {
               viewport={{ once: true }}
             >
               <img
-                src="/images/agent-meeting-seniors.png"
+                src="/images/agent-meeting-seniors.webp"
+                loading="lazy"
+                decoding="async"
                 alt={c.whyImgAlt}
                 className="rounded-3xl shadow-premium w-full h-[400px] object-cover"
               />

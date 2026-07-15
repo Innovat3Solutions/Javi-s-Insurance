@@ -138,7 +138,9 @@ export const HealthInsurancePage = () => {
 
                         {/* TEMPORARY IMAGE HOLDER FOR HEALTH INSURANCE */}
                         <img
-                            src="/images/health-hero.png"
+                            src="/images/health-hero.webp"
+                            fetchPriority="high"
+                            decoding="async"
                             alt={c.familyImageAlt}
                             className="relative rounded-[3rem] shadow-premium w-full h-[480px] object-cover"
                         />
@@ -219,7 +221,9 @@ export const HealthInsurancePage = () => {
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-bright-red/20 to-transparent rounded-[2rem] transform rotate-2" />
                             <img
-                                src="/images/couple-with-agent.png"
+                                src="/images/couple-with-agent.webp"
+                                loading="lazy"
+                                decoding="async"
                                 alt={c.coupleImageAlt}
                                 className="relative rounded-[2rem] shadow-premium w-full h-[400px] object-cover"
                             />

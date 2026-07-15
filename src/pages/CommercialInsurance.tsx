@@ -224,7 +224,9 @@ export const CommercialInsurancePage = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/10 to-light-blue/10 rounded-[2rem] lg:rounded-[3rem] transform -rotate-2" />
                         <img
-                            src="/images/commercial-hero.png"
+                            src="/images/commercial-hero.webp"
+                            fetchPriority="high"
+                            decoding="async"
                             alt="Business professionals in modern office"
                             className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
                         />
@@ -344,7 +346,9 @@ export const CommercialInsurancePage = () => {
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-deep-blue/20 to-transparent rounded-[2rem] transform rotate-2" />
                             <img
-                                src="/images/business-owner.png"
+                                src="/images/business-owner.webp"
+                                loading="lazy"
+                                decoding="async"
                                 alt="Business owner in front of their company"
                                 className="relative rounded-[2rem] shadow-premium w-full h-[400px] object-cover"
                             />

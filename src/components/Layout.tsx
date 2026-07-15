@@ -11,7 +11,7 @@ export { ShieldLogo };
 // Logo component using the actual brand logo image
 export const Logo = ({ className = "h-12" }: { className?: string }) => (
   <img
-    src="/images/logo.png"
+    src="/images/logo.webp"
     alt="Javi's Insurance Services"
     className={`${className} w-auto object-contain mix-blend-multiply`}
   />
@@ -615,7 +615,7 @@ export const Footer = () => {
 
           <div className="col-span-2 grid grid-cols-3 gap-8">
             <div>
-              <h4 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.services}</h4>
+              <h3 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.services}</h3>
               <ul className="space-y-4 text-sm text-text-muted font-medium">
                 <li><Link to="/obamacare" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.obamacare}</Link></li>
                 <li><Link to="/medicare" className="hover:text-deep-blue transition-colors">{t.healthPlanLinks.medicare}</Link></li>
@@ -628,7 +628,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.support}</h4>
+              <h3 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.support}</h3>
               <ul className="space-y-4 text-sm text-text-muted font-medium">
                 <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.faqLink}</Link></li>
                 <li><Link to="/" className="hover:text-deep-blue transition-colors">{t.footer.helpCenter}</Link></li>
@@ -637,7 +637,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.legal}</h4>
+              <h3 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.legal}</h3>
               <ul className="space-y-4 text-sm text-text-muted font-medium">
                 <li><Link to="/privacy-policy" className="hover:text-deep-blue transition-colors">{t.footer.privacyPolicy}</Link></li>
                 <li><Link to="/terms" className="hover:text-deep-blue transition-colors">{t.footer.termsOfUse}</Link></li>
@@ -647,7 +647,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.newsletter}</h4>
+            <h3 className="font-bold mb-6 text-lg text-gradient-secondary">{t.footer.newsletter}</h3>
             <p className="text-xs text-text-muted mb-4 leading-relaxed">
               {t.footer.newsletterDesc}
             </p>
@@ -670,13 +670,13 @@ export const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-gray-200 text-xs text-text-muted font-medium">
           <div className="flex gap-4 mb-4 md:mb-0">
-            <a href="#" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
+            <a href="#" aria-label="Facebook" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
               <Facebook size={16} />
             </a>
-            <a href="#" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
+            <a href="#" aria-label="Twitter" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
               <Twitter size={16} />
             </a>
-            <a href="#" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
+            <a href="#" aria-label="Instagram" className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-text-main hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all cursor-pointer shadow-sm">
               <Instagram size={16} />
             </a>
           </div>

@@ -8,38 +8,38 @@ interface InsuranceProvider {
 
 // Medicare insurance providers - only actual insurance companies
 const medicareProviders: InsuranceProvider[] = [
-  { name: 'Humana', logo: '/images/insurance-logos/humana.png' },
-  { name: 'Aetna', logo: '/images/insurance-logos/aetna.png' },
-  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.png' },
-  { name: 'Cigna', logo: '/images/insurance-logos/cigna.png' },
-  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.png' },
-  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.png' },
-  { name: 'Solis Health Plans', logo: '/images/insurance-logos/solis.png' },
-  { name: 'Keralty', logo: '/images/insurance-logos/keralty.png' },
-  { name: 'Medicare', logo: '/images/insurance-logos/medicare.png' },
-  { name: 'Florida Medicaid', logo: '/images/insurance-logos/florida-medicaid.png' },
+  { name: 'Humana', logo: '/images/insurance-logos/humana.webp' },
+  { name: 'Aetna', logo: '/images/insurance-logos/aetna.webp' },
+  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.webp' },
+  { name: 'Cigna', logo: '/images/insurance-logos/cigna.webp' },
+  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.webp' },
+  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.webp' },
+  { name: 'Solis Health Plans', logo: '/images/insurance-logos/solis.webp' },
+  { name: 'Keralty', logo: '/images/insurance-logos/keralty.webp' },
+  { name: 'Medicare', logo: '/images/insurance-logos/medicare.webp' },
+  { name: 'Florida Medicaid', logo: '/images/insurance-logos/florida-medicaid.webp' },
 ];
 
 // ACA / Obamacare providers
 const acaProviders: InsuranceProvider[] = [
-  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.png' },
-  { name: 'Aetna', logo: '/images/insurance-logos/aetna.png' },
-  { name: 'Cigna', logo: '/images/insurance-logos/cigna.png' },
-  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.png' },
-  { name: 'Humana', logo: '/images/insurance-logos/humana.png' },
-  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.png' },
-  { name: 'Solis Health Plans', logo: '/images/insurance-logos/solis.png' },
-  { name: 'Keralty', logo: '/images/insurance-logos/keralty.png' },
+  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.webp' },
+  { name: 'Aetna', logo: '/images/insurance-logos/aetna.webp' },
+  { name: 'Cigna', logo: '/images/insurance-logos/cigna.webp' },
+  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.webp' },
+  { name: 'Humana', logo: '/images/insurance-logos/humana.webp' },
+  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.webp' },
+  { name: 'Solis Health Plans', logo: '/images/insurance-logos/solis.webp' },
+  { name: 'Keralty', logo: '/images/insurance-logos/keralty.webp' },
 ];
 
 // Generic health insurance providers
 const healthProviders: InsuranceProvider[] = [
-  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.png' },
-  { name: 'Aetna', logo: '/images/insurance-logos/aetna.png' },
-  { name: 'Cigna', logo: '/images/insurance-logos/cigna.png' },
-  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.png' },
-  { name: 'Humana', logo: '/images/insurance-logos/humana.png' },
-  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.png' },
+  { name: 'Florida Blue', logo: '/images/insurance-logos/florida-blue.webp' },
+  { name: 'Aetna', logo: '/images/insurance-logos/aetna.webp' },
+  { name: 'Cigna', logo: '/images/insurance-logos/cigna.webp' },
+  { name: 'UnitedHealthcare', logo: '/images/insurance-logos/united-healthcare.webp' },
+  { name: 'Humana', logo: '/images/insurance-logos/humana.webp' },
+  { name: 'Simply Healthcare', logo: '/images/insurance-logos/simply-healthcare.webp' },
 ];
 
 interface LogoCardProps {
@@ -56,6 +56,8 @@ const LogoCard = ({ provider, compact = false }: LogoCardProps) => {
         {!imageError ? (
           <img
             src={provider.logo}
+            loading="lazy"
+            decoding="async"
             alt={`${provider.name} logo`}
             className="h-12 md:h-14 w-auto max-w-full object-contain transition-transform duration-300 hover:scale-105"
             onError={() => setImageError(true)}
@@ -74,6 +76,8 @@ const LogoCard = ({ provider, compact = false }: LogoCardProps) => {
       {!imageError ? (
         <img
           src={provider.logo}
+          loading="lazy"
+          decoding="async"
           alt={`${provider.name} logo`}
           className="h-14 md:h-18 w-auto max-w-[95%] object-contain transition-transform duration-300 group-hover:scale-105"
           style={{ maxHeight: '72px' }}

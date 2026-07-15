@@ -257,7 +257,9 @@ export const HomeInsurancePage = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/10 to-light-blue/10 rounded-[2rem] lg:rounded-[3rem] transform -rotate-2" />
                         <img
-                            src="/images/home-hero.png"
+                            src="/images/home-hero.webp"
+                            fetchPriority="high"
+                            decoding="async"
                             alt="Beautiful home with insurance protection"
                             className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
                         />

@@ -199,6 +199,7 @@ export const TestimonialsSection = ({ filter }: { filter?: 'obamacare' | 'medica
         <div className="flex justify-center items-center gap-4">
           <button
             onClick={prevTestimonial}
+            aria-label="Previous testimonial"
             className="w-12 h-12 rounded-full border-2 border-deep-blue/20 flex items-center justify-center hover:bg-deep-blue hover:text-white hover:border-deep-blue transition-all"
           >
             <ArrowLeft size={20} />
@@ -210,14 +211,20 @@ export const TestimonialsSection = ({ filter }: { filter?: 'obamacare' | 'medica
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`w-3 h-3 rounded-full transition-all ${i === currentIndex ? 'bg-deep-blue w-8' : 'bg-deep-blue/20'
-                  }`}
-              />
+                aria-label={`Go to testimonial ${i + 1}`}
+                className="p-1.5 flex items-center justify-center"
+              >
+                <span
+                  className={`block w-3 h-3 rounded-full transition-all ${i === currentIndex ? 'bg-deep-blue w-8' : 'bg-deep-blue/20'
+                    }`}
+                />
+              </button>
             ))}
           </div>
 
           <button
             onClick={nextTestimonial}
+            aria-label="Next testimonial"
             className="w-12 h-12 rounded-full bg-deep-blue text-white flex items-center justify-center hover:bg-deep-blue/90 transition-all shadow-lg"
           >
             <ArrowRight size={20} />

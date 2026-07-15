@@ -264,7 +264,9 @@ export const AutoInsurancePage = () => {
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-bright-red/10 to-deep-blue/10 rounded-[3rem] transform -rotate-2" />
                         <img
-                            src="/images/auto-hero.png"
+                            src="/images/auto-hero.webp"
+                            fetchPriority="high"
+                            decoding="async"
                             alt="Car with insurance protection"
                             className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
                         />
@@ -384,7 +386,9 @@ export const AutoInsurancePage = () => {
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-deep-blue/20 to-transparent rounded-[2rem] transform rotate-2" />
                             <img
-                                src="/images/woman-driving.png"
+                                src="/images/woman-driving.webp"
+                                loading="lazy"
+                                decoding="async"
                                 alt="Happy driver on the road"
                                 className="relative rounded-[2rem] shadow-premium w-full h-[400px] object-cover"
                             />

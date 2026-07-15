@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { ArrowRight, Shield, ChevronDown, Phone, Plus, HelpCircle, Home, Car, Building2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Navbar, Footer } from './components/Layout';
 import { ContactForm } from './components/ContactForm';
 import { QuoteButton } from './components/QuoteButton';
@@ -11,17 +11,20 @@ import { TestimonialsSection } from './components/TestimonialCard';
 import { ScrollToTop } from './components/ScrollToTop';
 import { WhyChooseUsSection, CompanyStats } from './components/AboutSection';
 import { ShieldPlus, HeartIcon, FamilyIcon, PhoneIcon, CheckIcon } from './components/BrandIcons';
-import { ObamacarePage } from './pages/Obamacare';
-import { MedicarePage } from './pages/Medicare';
-import { HomeInsurancePage } from './pages/HomeInsurance';
-import { AutoInsurancePage } from './pages/AutoInsurance';
-import { CommercialInsurancePage } from './pages/CommercialInsurance';
-import { MedicaidPage } from './pages/Medicaid';
-import { BecomeAgentPage } from './pages/BecomeAgent';
-import { DentalVisionPage } from './pages/DentalVision';
-import { GetCoveredPage } from './pages/GetCovered';
-import { PrivacyPolicyPage } from './pages/PrivacyPolicy';
-import { TermsOfServicePage } from './pages/TermsOfService';
+import { RouteMeta } from './components/RouteMeta';
+
+// Route-level code splitting: each page's code loads only when visited
+const ObamacarePage = lazy(() => import('./pages/Obamacare').then(m => ({ default: m.ObamacarePage })));
+const MedicarePage = lazy(() => import('./pages/Medicare').then(m => ({ default: m.MedicarePage })));
+const HomeInsurancePage = lazy(() => import('./pages/HomeInsurance').then(m => ({ default: m.HomeInsurancePage })));
+const AutoInsurancePage = lazy(() => import('./pages/AutoInsurance').then(m => ({ default: m.AutoInsurancePage })));
+const CommercialInsurancePage = lazy(() => import('./pages/CommercialInsurance').then(m => ({ default: m.CommercialInsurancePage })));
+const MedicaidPage = lazy(() => import('./pages/Medicaid').then(m => ({ default: m.MedicaidPage })));
+const BecomeAgentPage = lazy(() => import('./pages/BecomeAgent').then(m => ({ default: m.BecomeAgentPage })));
+const DentalVisionPage = lazy(() => import('./pages/DentalVision').then(m => ({ default: m.DentalVisionPage })));
+const GetCoveredPage = lazy(() => import('./pages/GetCovered').then(m => ({ default: m.GetCoveredPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicyPage })));
+const TermsOfServicePage = lazy(() => import('./pages/TermsOfService').then(m => ({ default: m.TermsOfServicePage })));
 import { WhatsAppFloat } from './components/WhatsAppButton';
 import { LanguageProvider, useLanguage } from './i18n';
 
@@ -56,10 +59,10 @@ const Hero = () => {
   const { t } = useLanguage();
 
   const products = [
-    { icon: HeartIcon, label: 'Health', color: 'bg-deep-blue', image: '/images/hero-health.png' },
-    { icon: FamilyIcon, label: 'Medicare', color: 'bg-light-blue', image: '/images/hero-medicare.png' },
-    { icon: Shield, label: 'Life', color: 'bg-silver', image: '/images/hero-life.png' },
-    { icon: ShieldPlus, label: 'More', color: 'bg-silver', image: '/images/hero-more.png' }
+    { icon: HeartIcon, label: 'Health', color: 'bg-deep-blue', image: '/images/hero-health.webp' },
+    { icon: FamilyIcon, label: 'Medicare', color: 'bg-light-blue', image: '/images/hero-medicare.webp' },
+    { icon: Shield, label: 'Life', color: 'bg-silver', image: '/images/hero-life.webp' },
+    { icon: ShieldPlus, label: 'More', color: 'bg-silver', image: '/images/hero-more.webp' }
   ];
 
   const productInfo = [
@@ -180,6 +183,7 @@ const Hero = () => {
                 <motion.button
                   key={i}
                   onClick={() => handleProductClick(i)}
+                  aria-label={`${product.label} insurance`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center transition-all shadow-sm
@@ -205,6 +209,8 @@ const Hero = () => {
               >
                 <img
                   src={products[selectedProduct].image}
+                  fetchPriority="high"
+                  decoding="async"
                   alt={`${productInfo[selectedProduct].title} representative`}
                   className="absolute inset-x-0 bottom-0 w-full h-full object-contain object-bottom drop-shadow-xl lg:drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)]"
                 />
@@ -327,7 +333,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.obamacareSubtitle,
       description: t.productCards.obamacareDesc,
       icon: HeartIcon,
-      image: "/images/obamacare-hero.png",
+      image: "/images/obamacare-hero.webp",
       link: "/obamacare",
       quoteUrl: "https://www.healthsherpa.com/?_agent_id=javisinsuranceservices&ljs=es-MX",
       color: "bg-bright-red",
@@ -339,7 +345,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.medicareSubtitle,
       description: t.productCards.medicareDesc,
       icon: FamilyIcon,
-      image: "/images/medicare-hero.png",
+      image: "/images/medicare-hero.webp",
       link: "/medicare",
       quoteUrl: "#contact",
       color: "bg-deep-blue",
@@ -351,7 +357,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.medicaidSubtitle,
       description: t.productCards.medicaidDesc,
       icon: ShieldPlus,
-      image: "/images/medicaid-hero.png",
+      image: "/images/medicaid-hero.webp",
       link: "/medicaid",
       quoteUrl: "#contact",
       color: "bg-deep-blue",
@@ -363,7 +369,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.homeSubtitle,
       description: t.productCards.homeDesc,
       icon: Home,
-      image: "/images/home-hero.png",
+      image: "/images/home-hero.webp",
       link: "/home-insurance",
       quoteUrl: "#contact",
       color: "bg-bright-red",
@@ -375,7 +381,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.autoSubtitle,
       description: t.productCards.autoDesc,
       icon: Car,
-      image: "/images/auto-hero.png",
+      image: "/images/auto-hero.webp",
       link: "/auto",
       quoteUrl: "#contact",
       color: "bg-deep-blue",
@@ -387,7 +393,7 @@ const ProductsSection = () => {
       subtitle: t.productCards.commercialSubtitle,
       description: t.productCards.commercialDesc,
       icon: Building2,
-      image: "/images/commercial-hero.png",
+      image: "/images/commercial-hero.webp",
       link: "/commercial",
       quoteUrl: "#contact",
       color: "bg-bright-red",
@@ -449,9 +455,9 @@ const ProductsSection = () => {
                   <product.icon size={24} />
                 </div>
                 <div>
-                  <h4 className={`text-lg font-bold transition-colors duration-300 ${activeProduct === i ? 'text-[#2B353F]' : 'text-gray-500 group-hover:text-gray-700'
-                    }`}>{product.title}</h4>
-                  <p className="text-sm text-gray-400 font-medium">{product.subtitle}</p>
+                  <p className={`text-lg font-bold transition-colors duration-300 ${activeProduct === i ? 'text-[#2B353F]' : 'text-gray-500 group-hover:text-gray-700'
+                    }`}>{product.title}</p>
+                  <p className="text-sm text-gray-500 font-medium">{product.subtitle}</p>
                 </div>
               </button>
             ))}
@@ -472,6 +478,8 @@ const ProductsSection = () => {
                 <div className="h-64 sm:h-80 relative bg-gray-50 flex items-center justify-center overflow-hidden">
                   <img
                     src={products[activeProduct].image}
+                    loading="lazy"
+                    decoding="async"
                     alt={products[activeProduct].title}
                     className="relative z-10 w-full h-full object-cover object-center"
                   />
@@ -624,7 +632,9 @@ const FAQ = () => {
               className="hidden md:block absolute bottom-0 left-0 md:left-4 lg:left-6 z-30 w-[20rem] md:w-[28rem] lg:w-[34rem] pointer-events-none"
             >
               <img
-                src="/images/phone-money.png"
+                src="/images/phone-money.webp"
+                loading="lazy"
+                decoding="async"
                 alt="Save money on insurance"
                 className="w-full h-auto drop-shadow-xl object-contain object-bottom"
               />
@@ -694,7 +704,7 @@ const ContactSection = () => {
                   <Phone className="w-6 h-6 text-deep-blue" />
                 </div>
                 <div>
-                  <h4 className="font-bold mb-1">{t.contact.callUsDirectly}</h4>
+                  <h3 className="font-bold mb-1">{t.contact.callUsDirectly}</h3>
                   <a href="tel:305-390-8679" className="text-gradient-secondary font-medium hover:underline">{t.common.phone}</a>
                   <p className="text-text-muted text-sm">{t.contact.businessHours}</p>
                 </div>
@@ -705,7 +715,7 @@ const ContactSection = () => {
                   <ShieldPlus size={24} className="text-deep-blue" />
                 </div>
                 <div>
-                  <h4 className="font-bold mb-1">{t.contact.licensedAndTrusted}</h4>
+                  <h3 className="font-bold mb-1">{t.contact.licensedAndTrusted}</h3>
                   <p className="text-text-muted text-sm">{t.contact.licensedSince}</p>
                 </div>
               </div>
@@ -751,6 +761,8 @@ export default function App() {
 
       <BrowserRouter>
         <ScrollToTop />
+        <RouteMeta />
+        <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/obamacare" element={<ObamacarePage />} />
@@ -765,6 +777,7 @@ export default function App() {
           <Route path="/terms" element={<TermsOfServicePage />} />
           <Route path="/become-agent" element={<BecomeAgentPage />} />
         </Routes>
+        </Suspense>
         <WhatsAppFloat />
       </BrowserRouter>
     </LanguageProvider>

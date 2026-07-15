@@ -273,7 +273,9 @@ export const DentalVisionPage = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/10 to-[#7C3AED]/20 rounded-[2rem] lg:rounded-[3rem] transform rotate-2" />
             <img
-              src="/images/family-living-room.png"
+              src="/images/family-living-room.webp"
+              fetchPriority="high"
+              decoding="async"
               alt="Family smiling together"
               className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
             />

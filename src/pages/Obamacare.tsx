@@ -437,7 +437,9 @@ export const ObamacarePage = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#0071BC]/10 to-[#0071BC]/20 rounded-[2rem] lg:rounded-[3rem] transform rotate-2" />
             <img
-              src="/images/obamacare-hero.png"
+              src="/images/obamacare-hero.webp"
+              fetchPriority="high"
+              decoding="async"
               alt="Family reviewing health insurance options together"
               className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
             />
@@ -768,7 +770,9 @@ export const ObamacarePage = () => {
               viewport={{ once: true }}
             >
               <img
-                src="/images/couple-with-agent.png"
+                src="/images/couple-with-agent.webp"
+                loading="lazy"
+                decoding="async"
                 alt="Insurance agent helping customers understand their options"
                 className="rounded-3xl shadow-premium w-full h-[400px] object-cover"
               />

@@ -153,12 +153,14 @@ export const BecomeAgentPage = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/10 to-bright-red/10 rounded-[2rem] lg:rounded-[3rem] transform rotate-2" />
             <img
-              src="/images/agent-team.png"
+              src="/images/agent-professional.webp"
+              fetchPriority="high"
+              decoding="async"
               alt="Insurance agent team"
               className="relative rounded-[2rem] lg:rounded-[3rem] shadow-premium w-full h-[300px] sm:h-[400px] lg:h-[480px] object-cover"
               onError={(e) => {
                 // Fallback if image doesn't exist
-                e.currentTarget.src = '/images/couple-with-agent.png';
+                e.currentTarget.src = '/images/couple-with-agent.webp';
               }}
             />
 
