@@ -66,11 +66,90 @@ const META: Record<string, { title: string; description: string }> = {
   },
 };
 
+// Per-route structured data for search engines and AI assistants
+const SERVICE_ROUTES: Record<string, string> = {
+  '/obamacare': 'ACA / Obamacare health insurance enrollment',
+  '/medicare': 'Medicare plan guidance (Advantage, Supplement, Part D)',
+  '/medicaid': 'Medicaid enrollment assistance',
+  '/dental-vision': 'Dental and vision insurance plans',
+  '/home-insurance': 'Home insurance',
+  '/auto': 'Auto insurance',
+  '/commercial': 'Commercial insurance',
+};
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: "How is Javi's Insurance different from other insurance sites?",
+      acceptedAnswer: { '@type': 'Answer', text: "We're an independent insurance marketplace, not an insurance company. This means we work for YOU, not insurers. We compare plans from multiple carriers to find you the best coverage at the best price, completely free." },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is your service really free?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes! You never pay us a dime. Insurance companies pay us a commission when you enroll through us. You get the same rates as going direct, plus our expert guidance and year round support at no extra cost.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are your agents licensed?',
+      acceptedAnswer: { '@type': 'Answer', text: "Absolutely. All our agents are fully licensed, certified, and undergo continuous training. We're licensed in Florida and Texas." },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can you help with both Obamacare and Medicare?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes! We specialize in both. For individuals and families, we help navigate ACA (Obamacare) plans. For seniors, we guide you through Medicare options including Advantage plans, supplements, and Part D coverage.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'When can I enroll in a health insurance plan?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Usually, you can enroll during the Open Enrollment Period (November 1 to January 15 for ACA, October 15 to December 7 for Medicare). However, certain life events like moving, getting married, or losing other coverage may qualify you for a Special Enrollment Period.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do I need to undergo a medical exam to get coverage?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No! Under the Affordable Care Act (Obamacare) and standard Medicare enrollments, you cannot be denied coverage or charged more based on preexisting conditions, and no medical exam is required to enroll.' },
+    },
+  ],
+};
+
+function routeSchema(pathname: string, meta: { title: string; description: string }) {
+  if (pathname === '/') return FAQ_SCHEMA;
+  const serviceName = SERVICE_ROUTES[pathname];
+  if (!serviceName) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: serviceName,
+    description: meta.description,
+    url: `${SITE}${pathname}`,
+    provider: { '@id': `${SITE}/#agency` },
+    areaServed: [
+      { '@type': 'State', name: 'Florida' },
+      { '@type': 'State', name: 'Texas' },
+    ],
+    availableLanguage: ['en', 'es'],
+  };
+}
+
+function setMetaProperty(property: string, content: string) {
+  let el = document.querySelector(`meta[property="${property}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute('property', property);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
 export const RouteMeta = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
     const meta = META[pathname] ?? META['/'];
+    const url = pathname === '/' ? `${SITE}/` : `${SITE}${pathname}`;
+
     document.title = meta.title;
     document
       .querySelector('meta[name="description"]')
@@ -81,7 +160,27 @@ export const RouteMeta = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', pathname === '/' ? `${SITE}/` : `${SITE}${pathname}`);
+    canonical.setAttribute('href', url);
+
+    setMetaProperty('og:title', meta.title);
+    setMetaProperty('og:description', meta.description);
+    setMetaProperty('og:url', url);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', meta.title);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', meta.description);
+
+    const schema = routeSchema(pathname, meta);
+    let script = document.getElementById('route-jsonld');
+    if (schema) {
+      if (!script) {
+        script = document.createElement('script');
+        script.id = 'route-jsonld';
+        script.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(script);
+      }
+      script.textContent = JSON.stringify(schema);
+    } else if (script) {
+      script.remove();
+    }
   }, [pathname]);
 
   return null;

@@ -1,0 +1,45 @@
+# Javi's Insurance Services
+
+> Independent, licensed insurance agency helping individuals, families, and businesses in Florida and Texas compare and enroll in health, Medicare, Medicaid, ACA/Obamacare, dental, vision, auto, home, and commercial insurance. The service is free to consumers — the agency is paid by insurance carriers, and clients pay the same rates as going direct. Assistance is available in English and Spanish.
+
+Key facts:
+- Business type: Independent insurance marketplace/agency (not an insurance company)
+- Licensed in: Florida and Texas
+- Cost to consumers: Free (carrier-paid commissions; same rates as going direct)
+- Languages: English and Spanish
+- Phone: (305) 390-8679
+- WhatsApp: (786) 689-8528
+- Email: info@javisservices.com
+- Address: 12518 SW 88th Street, Miami, FL 33186
+- Hours: Monday–Friday 8am–8pm, Saturday 9am–5pm (Eastern)
+- The agency does not buy, sell, or trade sales leads
+- Not affiliated with any government agency (HealthCare.gov, CMS, Medicare, or Medicaid)
+
+## Services
+
+- [ACA / Obamacare health plans](https://www.javisservices.com/obamacare): Marketplace plan comparison, subsidy checks, and enrollment; many families qualify for $0-premium plans
+- [Medicare](https://www.javisservices.com/medicare): Medicare Advantage, Supplement (Medigap), and Part D drug plan guidance
+- [Medicaid](https://www.javisservices.com/medicaid): Eligibility checks and enrollment help in Florida and Texas
+- [Dental & vision plans](https://www.javisservices.com/dental-vision): Individual and family dental/vision coverage
+- [Home insurance](https://www.javisservices.com/home-insurance): Homeowners coverage from multiple carriers
+- [Auto insurance](https://www.javisservices.com/auto): Car insurance quotes from multiple carriers
+- [Commercial insurance](https://www.javisservices.com/commercial): General liability, commercial auto, and business coverage
+- [Get covered (quote request)](https://www.javisservices.com/get-covered): Start a free quote; a licensed agent follows up
+- [Become an agent](https://www.javisservices.com/become-agent): Careers for licensed insurance agents
+
+## How it works
+
+1. Tell us about yourself (household size, income range, ZIP code, coverage needs)
+2. A licensed agent compares plans from multiple carriers
+3. Enroll with free guidance; support continues year-round
+
+Enrollment periods: ACA Open Enrollment is November 1 – January 15; Medicare Annual Enrollment is October 15 – December 7. Life events (moving, marriage, loss of coverage) may qualify for a Special Enrollment Period at any time. No medical exam is required for ACA or standard Medicare enrollment.
+
+## Policies
+
+- [Privacy policy](https://www.javisservices.com/privacy-policy): Includes SMS/text-messaging consent terms; mobile opt-in data is never shared with third parties
+- [Terms of service](https://www.javisservices.com/terms)
+
+## Optional
+
+- [Full details for AI assistants](https://www.javisservices.com/llms-full.txt): Expanded service descriptions and FAQ

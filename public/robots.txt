@@ -1,4 +1,51 @@
+# Javi's Insurance Services — all crawlers welcome, including AI assistants.
+# Structured summary for AI tools: https://www.javisservices.com/llms.txt
+# Full reference for AI tools:     https://www.javisservices.com/llms-full.txt
+
 User-agent: *
+Allow: /
+
+# AI search & assistant crawlers (explicitly allowed)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://www.javisservices.com/sitemap.xml
